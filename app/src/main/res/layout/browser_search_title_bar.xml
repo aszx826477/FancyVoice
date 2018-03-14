@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:paddingTop="5dip"
+    android:layout_height="47dip"
+    android:layout_gravity="center">
+
+    <RelativeLayout android:gravity="center_vertical"
+        android:id="@+id/title_lay_input_url"
+        android:layout_width="fill_parent"
+        android:layout_height="36.0dip"
+        android:layout_marginLeft="11.0dip"
+        android:layout_marginRight="11.0dip">
+
+        <Button android:textSize="14.0sp"
+            android:textColor="@android:color/black"
+            android:id="@+id/search_title_go"
+            android:background="@drawable/button_selector"
+            android:visibility="gone"
+            android:layout_width="55.0dip"
+            android:layout_height="fill_parent"
+            android:text="@string/slide_right_go"
+            android:layout_alignParentRight="true" />
+
+        <Button android:textSize="14.0sp"
+            android:textColor="@android:color/black"
+            android:id="@+id/search_title_cancel"
+            android:background="@drawable/button_selector"
+            android:visibility="visible"
+            android:layout_width="55.0dip"
+            android:layout_height="fill_parent"
+            android:text="@string/slide_right_cancel"
+            android:layout_alignParentRight="true" />
+
+        <RelativeLayout
+            android:background="@drawable/top_title_back"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="60.0dip">
+            <ImageView
+                android:id="@+id/title_top_earth"
+                android:layout_width="17.0dip"
+                android:layout_height="17.0dip"
+                android:layout_marginLeft="9.5dip"
+                android:layout_marginRight="6.5dip"
+                android:src="@mipmap/app_web_browser_sm"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true" />
+            <TextView
+                android:id="@+id/title_top_line"
+                android:background="#ff979797"
+                android:layout_width="1.0px"
+                android:layout_height="20.0dip"
+                android:layout_toRightOf="@id/title_top_earth"
+                android:layout_centerVertical="true" />
+            <ImageView
+                android:id="@+id/search_title_url_clear"
+                android:visibility="gone"
+                android:layout_width="17.0dip"
+                android:layout_height="17.0dip"
+                android:layout_marginRight="11.5dip"
+                android:src="@mipmap/ic_clear"
+                android:scaleType="centerInside"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+
+            <EditText
+                android:id="@+id/search_title_edit"
+                style="@style/autocomplete_style"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/title_top_line"
+                android:layout_toRightOf="@+id/title_top_line"
+                android:background="#ffececec"
+                android:drawablePadding="10.0dip"
+                android:hint="@string/slide_right_txtUrl_hint"
+                android:imeOptions="actionGo"
+                android:inputType="textUri"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:singleLine="true"
+                android:textColor="#ff000000"
+                android:textColorHighlight="@color/edittext_color_highlight"
+                android:textColorHint="#ffaaaaaa"
+                android:textSize="14.0dip" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/index_title_merge_text"
+        android:layout_marginTop="5dip"
+        android:background="#ffd7d7d8"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"/>
+</LinearLayout>

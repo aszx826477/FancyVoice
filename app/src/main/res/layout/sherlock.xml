@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" 
+    android:id="@+id/sherlockview"
+    android:background="@mipmap/back"
+    android:weightSum="1">
+
+    
+     <ImageView 
+        android:id="@+id/sherlock" 
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_weight="0.5"
+        android:src="@mipmap/sherlock" />
+
+    <TextView
+        android:id="@+id/sherlocktip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:text="研究世界奇案是我的他的最爱（打一人名）"
+        android:textSize="20sp" />
+</LinearLayout>

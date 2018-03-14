@@ -1,0 +1,25 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+
+    <dimen name="title_font_size">17.0dip</dimen>
+    <dimen name="title_height">38.0dip</dimen>
+
+    <dimen name="progressbar_size">3.0dip</dimen>
+    <dimen name="menu_img_size">30.329987dip</dimen>
+    <dimen name="menu_img_size_height">23.329987dip</dimen>
+    <dimen name="menu_img_size_width">11.659973dip</dimen>
+    <dimen name="menu_padding">8.0dip</dimen>
+    <dimen name="menu_padding_bottom">12.0dip</dimen>
+    <dimen name="menu_padding_top">24.0dip</dimen>
+    <dimen name="menu_text_size">11.0sp</dimen>
+    <dimen name="gridview_textsize">15.0sp</dimen>
+    <dimen name="title_nav_height">36.0dip</dimen>
+    <dimen name="title_bar_height">49.0dip</dimen>
+
+</resources>

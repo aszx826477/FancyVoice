@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="menu_item_bg">#fff5f5f5</color>
+    <color name="popupwindow_default">#ffffffff</color>
+    <color name="popupwindow_item_text">#ff5e5e5e</color>
+    <color name="popupwindow_item_text_none">#ffc8c8c8</color>
+    <color name="popupwindow_press">#ffebebeb</color>
+    <color name="op_bg">#ffd9d9d9</color>
+    <color name="b_bg">#fff9f9f9</color>
+    <color name="edittext_color_highlight">#ffd3eac3</color>
+    <color name="color">#ffffffff</color>
+
+    <color name="gray">#21252a</color>
+    <color name="gray2">#808080</color>
+    <color name="orange">#ff8c6a</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="blue">#ff14445a</color>
+    <color name="blue2">#50c1e9</color>
+</resources>

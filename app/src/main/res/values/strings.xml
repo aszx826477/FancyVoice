@@ -1,0 +1,36 @@
+<resources>
+
+
+    <string name="app_name">语音助手</string>
+
+    <!--Browser part String Define-->
+    <string name="slide_right_txtUrl_hint">请输入网址</string>
+    <string name="slide_right_cancel">取消</string>
+    <string name="slide_right_go">前往</string>
+
+
+    <!--Notebook part String Define-->
+    <string name="edit_notebook">编辑备忘录</string>
+    <string name="edit_time">编辑时间</string>
+    <string name="edit_title">标题</string>
+    <string name="edit_title_hint">此处备忘录标题</string>
+    <string name="edit_content">内容编辑</string>
+    <string name="edit_content_hint">此处备忘录事件</string>
+
+
+    <!--Game part String Define-->
+
+
+
+
+    <!--MainActivity part String Define-->
+    <string name="welcome_explorer">
+        无需滑动和点击的一款浏览器，您只需说出轻轻发出声音，便可开始我们的探索之旅，一切都由您的声音操控
+    </string>
+    <string name="welcome_game">
+        这是我们开发的一款基于语音的小游戏，您可以尽情使用声音，享受脑洞大开的喜悦
+    </string>
+    <string name="welcome_notebook">
+       您只需使用声音即可转换成文字记录，支持基本的文本编辑操作，相信你会爱上这种记录文字的方式
+    </string>
+</resources>

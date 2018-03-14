@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:id="@+id/spongeview"
+    android:background="@mipmap/back">
+    
+     <ImageView 
+        android:id="@+id/spongebob" 
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:src="@mipmap/spongebob" />
+     
+     <TextView 
+         android:id="@+id/spongetip"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:textAlignment="center"
+         android:textSize="20sp"
+         android:padding="10dp"
+         android:text="我很喜欢被人捏（打一卡通人物）" />"
+    
+
+</RelativeLayout>

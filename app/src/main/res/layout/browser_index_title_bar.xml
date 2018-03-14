@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:paddingTop="5dip"
+    android:layout_height="47dip"
+    android:layout_gravity="center">
+    <RelativeLayout
+        android:id="@+id/index_title_lay_index"
+        android:background="@drawable/top_title_back"
+        android:visibility="visible"
+        android:layout_width="fill_parent"
+        android:layout_height="36dip"
+        android:layout_marginLeft="11.0dip"
+        android:layout_marginRight="11.0dip">
+        <ImageView
+            android:id="@+id/index_title_top_earth"
+            android:layout_width="17.0dip"
+            android:layout_height="17.0dip"
+            android:layout_marginLeft="9.5dip"
+            android:layout_marginRight="6.5dip"
+            android:src="@mipmap/wangluo"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
+        <TextView
+            android:id="@+id/index_title_top_line"
+            android:background="#ffafafaf"
+            android:layout_width="1.0px"
+            android:layout_height="20.0dip"
+            android:layout_toRightOf="@id/index_title_top_earth"
+            android:layout_centerVertical="true" />
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0.0px"
+            android:layout_height="0.0px" />
+        <EditText
+            android:id="@+id/index_title_edit"
+            android:textSize="13.0dip"
+            android:textColor="#ffaaaaaa"
+            android:background="#ffececec"
+            android:paddingLeft="10.0dip"
+            android:focusable="false"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="1.0dip"
+            android:layout_marginRight="30.0dip"
+            android:layout_marginBottom="1.0dip"
+            android:hint="@string/slide_right_txtUrl_hint"
+            android:singleLine="true"
+            android:inputType="none"
+            android:layout_toRightOf="@id/index_title_top_line" />
+        <ImageView
+            android:id="@+id/index_title_refresh"
+            android:visibility="visible"
+            android:layout_width="20.0dip"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="6.0dip"
+            android:src="@mipmap/refresh"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        >
+        <TextView
+            android:id="@+id/index_title_merge_text"
+            android:background="#ffd7d7d8"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="5dip"
+            android:layout_height="1.0dip"/>
+        <ProgressBar
+            android:id="@+id/index_title_progress"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_marginTop="4dip"
+            android:layout_height="2dip"
+            style="?android:attr/progressBarStyleHorizontal"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

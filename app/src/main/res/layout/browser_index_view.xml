@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/index_view"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:visibility="visible"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/browser_index_title_bar"/>
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0.0dip"
+        android:layout_weight="1.0"
+        >
+        <WebView
+            android:id="@+id/index_webView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            />
+        <View
+            android:id="@+id/index_background"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#5c000000"
+            />
+        <top.yelbee.www.library.FilterMenuLayout
+            android:id="@+id/filter_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="8dp"
+            app:fm_centerBottom="50dp"
+            app:fm_centerRight="50dp"
+            app:fm_collapsedRadius="24dp"
+            app:fm_expandedRadius="96dp"
+            app:fm_primaryColor="#ff5791aa"
+            app:fm_primaryDarkColor="#ff334862"/>
+    </FrameLayout>
+
+
+</LinearLayout>
