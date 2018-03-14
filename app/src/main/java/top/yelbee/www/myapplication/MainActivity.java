@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.media.MediaPlayer;
+import android.widget.TextView;
 
 import top.yelbee.www.library.RoundSpinView;
 import top.yelbee.www.library.RoundSpinView.onRoundSpinViewListener;
@@ -12,6 +13,7 @@ public class MainActivity extends Activity implements onRoundSpinViewListener{
     private CustomVideoView videoview;
 
     public RoundSpinView rsv_test;
+
 
 
     @Override
@@ -36,6 +38,9 @@ public class MainActivity extends Activity implements onRoundSpinViewListener{
                 videoview.start();
             }
         });
+        for(int i = 0; i < 5; i++) {
+            
+        }
     }
 
 
