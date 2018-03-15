@@ -4,15 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
-
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
-
-
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
@@ -24,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import hugo.weaving.DebugLog;
 import top.yelbee.www.library.FilterMenu;
@@ -70,6 +65,10 @@ public class Browser extends AppCompatActivity implements View.OnClickListener {
     //主页地址
     private String home_url = "http://www.baidu.com";
 
+    //引擎图像变换
+    public ImageView index_title_top_earth;
+    private String prefixx;
+    private String trans;
 
 
     @Override
@@ -77,6 +76,19 @@ public class Browser extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_browser);
+
+        //引擎图像变换
+        index_title_top_earth = (ImageView)findViewById(R.id.index_title_top_earth) ;
+
+        index_title_top_earth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("preifx","");
+                intent.setClass(Browser.this,engine_drag.class);
+                startActivityForResult(intent , 1);
+            }
+        });
 
         //index_bottom_poweroff = (ImageView)findViewById(R.id.index_bottom_poweroff);
 
@@ -290,11 +302,13 @@ public class Browser extends AppCompatActivity implements View.OnClickListener {
                 String goUrl = search_title_edit.getText().toString();
                 if(goUrl.indexOf("http://")<0&&goUrl.indexOf(".com")<0){
                     //goUrl="http://"+goUrl;
-                    goUrl="http://www.baidu.com/s?wd="+goUrl;  //原理待查
+                    //goUrl="http://www.baidu.com/s?wd="+goUrl;  //原理待查
+                    //goUrl=engine_drag.+goUrl;
+                    goUrl=prefixx+goUrl;
                     search_title_edit.setText(goUrl);
                 }
                 else{
-                    goUrl="http://"+goUrl;
+                    //goUrl="http://"+goUrl;
                     search_title_edit.setText(goUrl);
                 }
                 search_title_cancel.callOnClick();
@@ -336,8 +350,29 @@ public class Browser extends AppCompatActivity implements View.OnClickListener {
         return false;
     }
 
+    /*//prefix传值方法
+    public void set_prefix(String prefix){
+        this.prefix = prefix;
+    }
 
+    public String get_prefix(){
+        return this.prefix;
+    }*/
 
+    protected void onActivityResult(int requestCode , int resultCode , Intent data){
+        super.onActivityResult(requestCode , resultCode , data);
+        if((requestCode==1)&&(resultCode==2)){
+            Bundle b = data.getExtras();
+            prefixx = b.getString("prefix");
+            trans = b.getString("trans");
+            if (trans.equals("baidu")) {
+                index_title_top_earth.setImageResource(R.mipmap.baidu_icon);
+            }
+            else if(trans.equals("google")){
+                index_title_top_earth.setImageResource(R.mipmap.google_icon);
+            }
+            }
 
+        }
+    }
 
-}

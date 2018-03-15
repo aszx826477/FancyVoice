@@ -1,23 +1,22 @@
 package top.yelbee.www.myapplication;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.media.MediaPlayer;
 
 import top.yelbee.www.library.RoundSpinView;
 import top.yelbee.www.library.RoundSpinView.onRoundSpinViewListener;
 
-public class MainActivity extends Activity implements onRoundSpinViewListener{
+public class MainActivity extends Activity implements onRoundSpinViewListener {
     private CustomVideoView videoview;
 
     public RoundSpinView rsv_test;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //luke is back
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -26,7 +25,7 @@ public class MainActivity extends Activity implements onRoundSpinViewListener{
 
 
         videoview = (CustomVideoView) findViewById(R.id.videoview);
-        videoview.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.milkyway));
+        videoview.setVideoURI(Uri.parse("android.resource://"+getPackageName()+"/"+ R.raw.milkyway));
 
         //播放
         videoview.start();
@@ -38,7 +37,6 @@ public class MainActivity extends Activity implements onRoundSpinViewListener{
                 videoview.start();
             }
         });
-
     }
 
 
@@ -62,11 +60,13 @@ public class MainActivity extends Activity implements onRoundSpinViewListener{
                 finish();
                 break;
             case 3:
+                Intent intent3 = new Intent(MainActivity.this, engine_drag.class);
+                startActivity(intent3);
                 break;
             case 4:
-                Intent intent3 = new Intent(MainActivity.this, url_testj.class);
-                startActivity(intent3);
-                finish();
+                Intent intent4 = new Intent(MainActivity.this, engine_drag.class);
+                startActivity(intent4);
+                break;
             default:
                 break;
         }
