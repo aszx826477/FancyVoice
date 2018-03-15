@@ -73,7 +73,7 @@ public class Game extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//setContentView(R.layout.activity_main);
 		setContentView(R.layout.game_main);
-		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a881329");  //Ѷ��ע��
+		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5aa9c8f7");  //Ѷ��ע��
 		mIvw=VoiceWakeuper.createWakeuper(this, null);    //(Context arg0, InitListener arg1)
 		set_topic();
 		set_content();
@@ -94,7 +94,7 @@ public class Game extends Activity {
 			recoString="";
 			//ed1.setText(resultString);
 			//��ȡ����������Դ·��
-			final String resPath=ResourceUtil.generateResourcePath(this, RESOURCE_TYPE.assets, "5a881329"+".jet");
+			final String resPath=ResourceUtil.generateResourcePath(this, RESOURCE_TYPE.assets, "5aa9c8f7"+".jet");
 			mIvw.setParameter(SpeechConstant.KEEP_ALIVE, "1"); 
 			mIvw.setParameter(SpeechConstant.PARAMS, null);
 			mIvw.setParameter(SpeechConstant.ENGINE_TYPE, mEngineType);
@@ -205,22 +205,22 @@ public class Game extends Activity {
 	} 
 	
 	private String parseData(String resultString) {
-	       //����gson����,�ǵ�Ҫ����һ��gson.jar��������ʹ��.
-	       Gson gson = new Gson();
-	       //���� 1.String���͵�json���� ���� 2.���json���ݶ�Ӧ��bean��
-	       bean xfBean = gson.fromJson(resultString, bean.class);
-	       //����һ������,�������bean����Ķ���.
-	       ArrayList<bean.WS> ws = xfBean.ws;
-	       //����һ������,������Ŵ�ÿ���������õ�������,ʹ��StringBuilderЧ�ʸ���
-	       StringBuilder stringBuilder = new StringBuilder();
-	       //ʹ�ø߼�forѭ��,ȡ���ض����Ե���������,װ��StringBuilder��
-	         for ( bean.WS w: ws) {
-	           String text = w.cw.get(0).w;
-	           stringBuilder.append(text);
-	        }
-	       //�������ڵ�����תΪ�ַ������س�ȥ.
-	       return stringBuilder.toString();
-	   }
+		//����gson����,�ǵ�Ҫ����һ��gson.jar��������ʹ��.
+		Gson gson = new Gson();
+		//���� 1.String���͵�json���� ���� 2.���json���ݶ�Ӧ��bean��
+		bean xfBean = gson.fromJson(resultString, bean.class);
+		//����һ������,�������bean����Ķ���.
+		ArrayList<bean.WS> ws = xfBean.ws;
+		//����һ������,������Ŵ�ÿ���������õ�������,ʹ��StringBuilderЧ�ʸ���
+		StringBuilder stringBuilder = new StringBuilder();
+		//ʹ�ø߼�forѭ��,ȡ���ض����Ե���������,װ��StringBuilder��
+		for ( bean.WS w: ws) {
+			String text = w.cw.get(0).w;
+			stringBuilder.append(text);
+		}
+		//�������ڵ�����תΪ�ַ������س�ȥ.
+		return stringBuilder.toString();
+	}
 	
 	public void set_topic() {
 		topic=(TextView)findViewById(R.id.topic);

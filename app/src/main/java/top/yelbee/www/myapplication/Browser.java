@@ -9,6 +9,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
@@ -20,6 +21,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechEvent;
+import com.iflytek.cloud.SpeechUtility;
+import com.iflytek.cloud.VoiceWakeuper;
+import com.iflytek.cloud.WakeuperListener;
+import com.iflytek.cloud.WakeuperResult;
+import com.iflytek.cloud.util.ResourceUtil;
+
+import java.util.ArrayList;
 
 import hugo.weaving.DebugLog;
 import top.yelbee.www.library.FilterMenu;
@@ -70,12 +85,32 @@ public class Browser extends AppCompatActivity implements View.OnClickListener {
     private String prefixx;
     private String trans;
 
+    //语音引擎配置如下
+    private VoiceWakeuper mIvw;
+    private String resultString;  //�������ѽ��
+    private String recoString;  //����ʶ����
+    private static final int MAX=60;
+    private static final int MIN=-20;
+    private int curThresh= MIN;
+    private String threshStr= "threshold: ";
+    private String mEngineType= SpeechConstant.TYPE_CLOUD;
+    private String mCloudGrammerId= null;
+
+    //识别结果回传变量
+    private String goUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_browser);
+
+        //语音唤醒启动
+        start_waker();
+
+        //语音引擎配置初始化
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5aa9c8f7");  //Ѷ��ע��
+        mIvw=VoiceWakeuper.createWakeuper(this, null);    //(Context arg0, InitListener arg1)
 
         //引擎图像变换
         index_title_top_earth = (ImageView)findViewById(R.id.index_title_top_earth) ;
@@ -299,7 +334,9 @@ public class Browser extends AppCompatActivity implements View.OnClickListener {
                 search_title_edit.clearFocus();
                 break;
             case R.id.search_title_go:
-                String goUrl = search_title_edit.getText().toString();
+                if(goUrl.equals("")){
+                    goUrl = search_title_edit.getText().toString();
+                }else{
                 if(goUrl.indexOf("http://")<0&&goUrl.indexOf(".com")<0){
                     //goUrl="http://"+goUrl;
                     //goUrl="http://www.baidu.com/s?wd="+goUrl;  //原理待查
@@ -312,7 +349,7 @@ public class Browser extends AppCompatActivity implements View.OnClickListener {
                     search_title_edit.setText(goUrl);
                 }
                 search_title_cancel.callOnClick();
-                index_webView.loadUrl(goUrl);
+                index_webView.loadUrl(goUrl);}
                 break;
             case R.id.index_bottom_menu_goback:
                 index_webView.goBack();
@@ -374,5 +411,95 @@ public class Browser extends AppCompatActivity implements View.OnClickListener {
             }
 
         }
+
+    private void start_waker() {
+        // TODO Auto-generated method stub
+        mIvw=VoiceWakeuper.getWakeuper();    //�ǿ��жϣ���ֹ��ָ��
+        if(mIvw!=null) {
+            resultString="";
+            recoString="";
+            //ed1.setText(resultString);
+            //��ȡ����������Դ·��
+            final String resPath= ResourceUtil.generateResourcePath(this, ResourceUtil.RESOURCE_TYPE.assets, "5aa9c8f7"+".jet");
+            mIvw.setParameter(SpeechConstant.KEEP_ALIVE, "1");
+            mIvw.setParameter(SpeechConstant.PARAMS, null);
+            mIvw.setParameter(SpeechConstant.ENGINE_TYPE, mEngineType);
+            mIvw.setParameter(ResourceUtil.IVW_RES_PATH, resPath);
+            mIvw.setParameter(SpeechConstant.IVW_SST, "oneshot");  //ʶ��ģʽ��one_shot
+            mIvw.setParameter(SpeechConstant.RESULT_TYPE, "json");
+            mIvw.setParameter(SpeechConstant.IVW_THRESHOLD, "0:"+curThresh);
+            mIvw.setParameter(SpeechConstant.IVW_SHOT_WORD, "0");  //��Ϊ��Ϊ
+            mIvw.setParameter(SpeechConstant.ASR_PTT, "0");
+            mIvw.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+            mIvw.startListening(mWakeupListener);
+        }
+    }
+    private WakeuperListener mWakeupListener = new WakeuperListener() {
+
+        @Override
+        public void onVolumeChanged(int arg0) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onResult(WakeuperResult arg0) {
+            // TODO Auto-generated method stub
+            //String text=arg0.getResultString();
+            Toast.makeText(getApplicationContext(), "I'm listening...", Toast.LENGTH_SHORT).show();
+            //ed1.setText(text);
+            //ed2.setText(null);
+        }
+
+        @Override
+        public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {    //knot to fix
+            // TODO Auto-generated method stub
+            //RecognizerResult result=((RecognizerResult)arg3.get(SpeechEvent.KEY_EVENT_IVW_RESULT));
+            //recoString= result.getResultString();
+            //ed2.setText(recoString);
+            if (SpeechEvent.EVENT_IVW_RESULT==arg0) {
+                //ed2.setText(null);
+                RecognizerResult result=(RecognizerResult) arg3.get(SpeechEvent.KEY_EVENT_IVW_RESULT);
+                String final_stream = parseData(result.getResultString());
+                goUrl = final_stream;     //结果回传变量
+                search_title_go.performClick();
+                start_waker();
+            }
+
+        }
+
+        @Override
+        public void onError(SpeechError arg0) {
+            // TODO Auto-generated method stub
+            if(arg0.getErrorCode()==10118) {
+                Toast.makeText(getApplicationContext(), "It takes me quite long to expect your answer!?", Toast.LENGTH_SHORT).show();
+                start_waker();
+            }
+        }
+
+        @Override
+        public void onBeginOfSpeech() {
+            // TODO Auto-generated method stub
+            Toast.makeText(getApplicationContext(), "u r welcome to begin", Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    private String parseData(String resultString) {
+        //����gson����,�ǵ�Ҫ����һ��gson.jar��������ʹ��.
+        Gson gson = new Gson();
+        //���� 1.String���͵�json���� ���� 2.���json���ݶ�Ӧ��bean��
+        bean xfBean = gson.fromJson(resultString, bean.class);
+        //����һ������,�������bean����Ķ���.
+        ArrayList<bean.WS> ws = xfBean.ws;
+        //����һ������,������Ŵ�ÿ���������õ�������,ʹ��StringBuilderЧ�ʸ���
+        StringBuilder stringBuilder = new StringBuilder();
+        //ʹ�ø߼�forѭ��,ȡ���ض����Ե���������,װ��StringBuilder��
+        for ( bean.WS w: ws) {
+            String text = w.cw.get(0).w;
+            stringBuilder.append(text);
+        }
+        //�������ڵ�����תΪ�ַ������س�ȥ.
+        return stringBuilder.toString();
+    }
     }
 

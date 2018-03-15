@@ -5,9 +5,7 @@
       <module fileurl="file://C:\Users\Bob\Documents\GitHub\VoiceAssistant\MyApplication.iml" filepath="C:\Users\Bob\Documents\GitHub\VoiceAssistant\MyApplication.iml" />
       <module fileurl="file://$PROJECT_DIR$/VoiceAssistant.iml" filepath="$PROJECT_DIR$/VoiceAssistant.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Bob\Documents\GitHub\VoiceAssistant\app\app.iml" filepath="C:\Users\Bob\Documents\GitHub\VoiceAssistant\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://C:\Users\Bob\Documents\GitHub\VoiceAssistant\library\library.iml" filepath="C:\Users\Bob\Documents\GitHub\VoiceAssistant\library\library.iml" />
     </modules>
   </component>
 </project>

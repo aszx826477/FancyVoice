@@ -30,7 +30,9 @@
         <activity android:name=".Browser" />
         <activity android:name=".Notebook" />
         <activity android:name=".NotebookEdit" />
-        <activity android:name=".Game">
+        <activity android:name=".Game"/>
+        <activity android:name=".engine_drag"
+            android:theme="@style/MyDialogStyleBottom" >
 
         </activity>
     </application>
