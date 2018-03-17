@@ -4,7 +4,7 @@ VoiceAssistant(Chinese Name:趣声) is an Android Application using voice-recogn
 
 ## Environment
 * Language
->>Chinese
+>Chinese
 * Platform
   Andorid 
   minSdkVersion 15 / compileSdkVersion 25 / targetSdkVersion 25
