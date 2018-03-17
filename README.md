@@ -3,7 +3,7 @@ VoiceAssistant(Chinese Name:趣声) is an Android Application using voice-recogn
 <div align=center><img width="150" height="180" src="http://opm54c01s.bkt.clouddn.com/18-3-16/3554926.jpg"/></div>
 
 ## Speech-Control Browser
-<div align=center><img width="350" height="300" src="http://opm54c01s.bkt.clouddn.com/18-3-16/61169555.jpg"/></div>
+<div align=center><img width="400" height="300" src="http://opm54c01s.bkt.clouddn.com/18-3-16/61169555.jpg"/></div>
 
 ## Speech-Control Notebook
 <div align=center><img width="150" height="300" src="http://opm54c01s.bkt.clouddn.com/18-3-16/96617817.jpg"/></div>
