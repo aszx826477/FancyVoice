@@ -14,7 +14,7 @@ VoiceAssistant(Chinese Name:趣声) is an Android Application using voice-recogn
 * Gradle details
   You could refer to the following configure to gradle
 
-```java
+```
 //app/build.gradle
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.hugo'
