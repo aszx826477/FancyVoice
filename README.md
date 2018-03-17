@@ -1,9 +1,9 @@
 # FancyVoice
 VoiceAssistant(Chinese Name:趣声) is an Android Application using voice-recognize technology from iFLY(website:http://www.xfyun.cn/). It has three mainly kinds of modules, Speech-Control Browser, Speech-Control Notebook and Game Centre based on voice-recognize. With BottomNavigationView on the bottom of layout companied by Viewpager, following **Material Design** rules, you must find yourself immerse in exploring this application for great pleasure as well as for its colorful, creative design.
-<div align=center><img width="150" height="180" src="http://opm54c01s.bkt.clouddn.com/18-3-16/3554926.jpg"/></div>
+<div align=center><img width="200" height="180" src="http://opm54c01s.bkt.clouddn.com/18-3-16/3554926.jpg"/></div>
 
 ## Speech-Control Browser
-<div align=center><img width="400" height="300" src="http://opm54c01s.bkt.clouddn.com/18-3-16/61169555.jpg"/></div>
+<div align=center><img width="150" height="300" src="http://opm54c01s.bkt.clouddn.com/18-3-16/61169555.jpg"/></div>
 
 ## Speech-Control Notebook
 <div align=center><img width="150" height="300" src="http://opm54c01s.bkt.clouddn.com/18-3-16/96617817.jpg"/></div>
