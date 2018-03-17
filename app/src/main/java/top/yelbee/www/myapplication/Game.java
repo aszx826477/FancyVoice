@@ -68,7 +68,7 @@ public class Game extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//setContentView(R.layout.activity_main);
 		setContentView(R.layout.game_main);
-		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a881329");  //Ѷ��ע��
+		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5aa9c8f7");  //Ѷ��ע��
 		mIvw=VoiceWakeuper.createWakeuper(this, null);    //(Context arg0, InitListener arg1)
 		set_topic();
 		set_content();
@@ -89,7 +89,8 @@ public class Game extends Activity {
 			recoString="";
 			//ed1.setText(resultString);
 
-			final String resPath=ResourceUtil.generateResourcePath(this, RESOURCE_TYPE.assets, "5a881329"+".jet");
+			final String resPath=ResourceUtil.generateResourcePath(this, RESOURCE_TYPE.assets, "5aa9c8f7"+".jet");
+
 			mIvw.setParameter(SpeechConstant.KEEP_ALIVE, "1"); 
 			mIvw.setParameter(SpeechConstant.PARAMS, null);
 			mIvw.setParameter(SpeechConstant.ENGINE_TYPE, mEngineType);
@@ -201,6 +202,7 @@ public class Game extends Activity {
 	
 	private String parseData(String resultString) {
 
+
 	       Gson gson = new Gson();
 
 	       bean xfBean = gson.fromJson(resultString, bean.class);
@@ -216,6 +218,7 @@ public class Game extends Activity {
 
 	       return stringBuilder.toString();
 	   }
+
 	
 	public void set_topic() {
 		topic=(TextView)findViewById(R.id.topic);

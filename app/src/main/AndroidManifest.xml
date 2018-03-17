@@ -18,7 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".FirstWelcomeActivity"></activity>
-        <activity android:name=".Browser" />
         <activity android:name=".Notebook" />
         <activity android:name=".NotebookEdit" />
         <activity android:name=".Game" />
@@ -30,7 +29,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
         <activity android:name=".AboutSoftware"></activity>
     </application>
 
