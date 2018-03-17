@@ -25,6 +25,7 @@ dependencies {
 //library/build.gradle
 apply plugin: 'com.android.library'
 ```
+
 ## Function
 #### Speech-Control Browser
 <div align=center><img width="150" height="300" src="http://opm54c01s.bkt.clouddn.com/18-3-16/61169555.jpg"/></div>
