@@ -2,15 +2,11 @@ package top.yelbee.www.myapplication;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -24,7 +20,6 @@ import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechEvent;
 import com.iflytek.cloud.SpeechUtility;
 
 import java.text.SimpleDateFormat;
@@ -32,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import hugo.weaving.DebugLog;
 import top.yelbee.www.library.FilterMenu;
@@ -72,7 +66,7 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notebook_edit);
+        setContentView(R.layout.notebook_edit);
 
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a881329");
         mIat = SpeechRecognizer.createRecognizer(this, mInitListener);//语音对象实例化

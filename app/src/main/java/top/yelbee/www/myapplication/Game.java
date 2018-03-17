@@ -6,30 +6,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
+
 import com.google.gson.Gson;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechEvent;
-import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.VoiceWakeuper;
 import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.iflytek.cloud.util.ResourceUtil;
 import com.iflytek.cloud.util.ResourceUtil.RESOURCE_TYPE;
-import android.app.Activity;
+
 import android.app.Service;
-import android.content.ContentValues;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -93,7 +88,7 @@ public class Game extends Activity {
 			resultString="";
 			recoString="";
 			//ed1.setText(resultString);
-			//��ȡ����������Դ·��
+
 			final String resPath=ResourceUtil.generateResourcePath(this, RESOURCE_TYPE.assets, "5a881329"+".jet");
 			mIvw.setParameter(SpeechConstant.KEEP_ALIVE, "1"); 
 			mIvw.setParameter(SpeechConstant.PARAMS, null);
@@ -205,20 +200,20 @@ public class Game extends Activity {
 	} 
 	
 	private String parseData(String resultString) {
-	       //����gson����,�ǵ�Ҫ����һ��gson.jar��������ʹ��.
+
 	       Gson gson = new Gson();
-	       //���� 1.String���͵�json���� ���� 2.���json���ݶ�Ӧ��bean��
+
 	       bean xfBean = gson.fromJson(resultString, bean.class);
-	       //����һ������,�������bean����Ķ���.
+
 	       ArrayList<bean.WS> ws = xfBean.ws;
-	       //����һ������,������Ŵ�ÿ���������õ�������,ʹ��StringBuilderЧ�ʸ���
+
 	       StringBuilder stringBuilder = new StringBuilder();
-	       //ʹ�ø߼�forѭ��,ȡ���ض����Ե���������,װ��StringBuilder��
+
 	         for ( bean.WS w: ws) {
 	           String text = w.cw.get(0).w;
 	           stringBuilder.append(text);
 	        }
-	       //�������ڵ�����תΪ�ַ������س�ȥ.
+
 	       return stringBuilder.toString();
 	   }
 	
@@ -310,17 +305,17 @@ public class Game extends Activity {
 		 public void handleMessage(Message msg) {
 			 switch(msg.what) {
 			 case 1: 
-					 setContentView(R.layout.name);
+					 setContentView(R.layout.game_name);
 					 set_name();
 					 break;
 					 
 			 case 2:
-				     setContentView(R.layout.spongebob);
+				     setContentView(R.layout.game_spongebob);
 				     set_sponge();
 				     break;
 				     
 			 case 3:
-				 	 setContentView(R.layout.sherlock);
+				 	 setContentView(R.layout.game_sherlock);
 				 	 set_sherlock();
 				 	 break;
 				 

@@ -1,139 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="47.0dip">
-    <TextView android:id="@+id/index_bottom_line"
-        android:background="#ffdadada"
-        android:layout_width="fill_parent"
-        android:layout_height="1.0px"
-        android:layout_alignParentTop="true" />
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:background="@color/menu_item_bg"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/index_bottom_line">
-        <!--返回1-->
-        <LinearLayout
-            android:gravity="center"
-            android:id="@+id/index_bottom_menu_goback"
-            android:background="@drawable/popupwindow_selector"
-            android:visibility="gone"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
-            <ImageView
-                android:layout_width="@dimen/menu_img_size_width"
-                android:layout_height="@dimen/menu_img_size_height"
-                android:src="@mipmap/ic_left"
-                android:scaleType="centerInside" />
-        </LinearLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="47dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <!--返回2-->
-        <LinearLayout
-            android:gravity="center"
-            android:id="@+id/index_bottom_menu_nogoback"
-            android:background="@drawable/popupwindow_selector"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
-            <ImageView
-                android:layout_width="@dimen/menu_img_size_width"
-                android:layout_height="@dimen/menu_img_size_height"
-                android:src="@mipmap/ic_left_dis"
-                android:scaleType="centerInside" />
-        </LinearLayout>
+    <ImageView
+        android:id="@+id/index_bottom_left"
+        app:srcCompat="@drawable/browser_left"
+        android:layout_width="30dp"
+        android:layout_height="47dp"
+        android:padding="5dp"
+        android:layout_weight="1"
+        />
 
+    <ImageView
+        android:id="@+id/index_bottom_right"
+        app:srcCompat="@drawable/browser_right"
+        android:layout_width="30dp"
+        android:layout_height="47dp"
+        android:padding="5dp"
+        android:layout_weight="1"
+        />
+    <ImageView
+        android:id="@+id/index_bottom_microphone"
+        app:srcCompat="@drawable/browser_microphone"
+        android:background="@color/orange"
+        android:layout_width="30dp"
+        android:layout_height="47dp"
+        android:padding="7dp"
+        android:layout_weight="1"
+        />
+    <ImageView
+        android:id="@+id/index_bottom_home"
+        app:srcCompat="@drawable/browser_home"
+        android:layout_width="30dp"
+        android:layout_height="47dp"
+        android:padding="10dp"
+        android:layout_weight="1"
+        />
+    <ImageView
+        android:id="@+id/index_bottom_search"
+        app:srcCompat="@drawable/browser_search"
+        android:layout_width="30dp"
+        android:layout_height="47dp"
+        android:padding="10dp"
+        android:layout_weight="1"
+        />
 
-        <LinearLayout
-            android:id="@+id/index_bottom_menu_goforward"
-            android:gravity="center"
-            android:background="@drawable/popupwindow_selector"
-            android:visibility="gone"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
-        <ImageView
-            android:layout_width="@dimen/menu_img_size_width"
-            android:layout_height="@dimen/menu_img_size_height"
-            android:src="@mipmap/ic_right"
-            android:scaleType="centerInside" />
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:id="@+id/index_bottom_menu_nogoforward"
-            android:background="@drawable/popupwindow_selector"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
-            <ImageView
-                android:layout_width="@dimen/menu_img_size_width"
-                android:layout_height="@dimen/menu_img_size_height"
-                android:src="@mipmap/ic_right_dis"
-                android:scaleType="centerInside" />
-        </LinearLayout>
-
-        <!--菜单-->
-        <FrameLayout
-            android:id="@+id/index_bottom_voice"
-            android:background="@drawable/popupwindow_selector"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
-            <ImageView
-                android:layout_gravity="center"
-                android:layout_width="23.299988dip"
-                android:layout_height="23.299988dip"
-                android:src="@mipmap/ic_voice_white"
-                android:scaleType="centerInside" />
-        </FrameLayout>
-        <LinearLayout
-            android:id="@+id/index_bottom_menu_gohome"
-            android:gravity="center"
-            android:visibility="gone"
-            android:background="@drawable/popupwindow_selector"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
-            <ImageView
-                android:id="@+id/index_bottom_iv_menu_gohome"
-                android:layout_width="21.0dip"
-                android:layout_height="22.0dip"
-                android:src="@mipmap/ic_home"
-                android:scaleType="centerInside" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/index_bottom_menu_nogohome"
-            android:gravity="center"
-            android:background="@drawable/popupwindow_selector"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
-            <ImageView
-                android:id="@+id/index_bottom_iv_menu_nogohome"
-                android:layout_width="21.0dip"
-                android:layout_height="22.0dip"
-                android:src="@mipmap/ic_home_none"
-                android:scaleType="centerInside" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/index_bottom_menu_new_window"
-            android:gravity="center"
-            android:background="@drawable/popupwindow_selector"
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
-            <ImageView
-                android:id="@+id/index_bottom_poweroff"
-                android:gravity="center"
-                android:background="@mipmap/ic_exit"
-                android:paddingRight="3.0dip"
-                android:paddingBottom="3.0dip"
-                android:layout_width="23.299988dip"
-                android:layout_height="23.299988dip"
-                android:scaleType="centerInside"
-                />
-        </LinearLayout>
-    </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

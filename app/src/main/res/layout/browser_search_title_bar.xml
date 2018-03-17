@@ -8,6 +8,7 @@
     android:layout_gravity="center">
 
     <RelativeLayout android:gravity="center_vertical"
+
         android:id="@+id/title_lay_input_url"
         android:layout_width="fill_parent"
         android:layout_height="36.0dip"
@@ -74,7 +75,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/title_top_line"
                 android:layout_toRightOf="@+id/title_top_line"
-                android:background="#ffececec"
                 android:drawablePadding="10.0dip"
                 android:hint="@string/slide_right_txtUrl_hint"
                 android:imeOptions="actionGo"

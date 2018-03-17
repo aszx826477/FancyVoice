@@ -1,16 +1,18 @@
 package top.yelbee.www.myapplication;
 
-import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -24,8 +26,15 @@ import hugo.weaving.DebugLog;
 import top.yelbee.www.library.FilterMenu;
 import top.yelbee.www.library.FilterMenuLayout;
 
-public class Notebook extends Activity implements
-        OnItemClickListener, OnItemLongClickListener {
+/**
+ * 依附在MainActivity中的第二个fragment
+ * 功能：实现语音备忘录
+ */
+
+public class MFragment2 extends Fragment implements
+        AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
+    View view;
+    FloatingActionButton fbutton;
 
     private ListView listview;
     private SimpleAdapter simple_adapter;
@@ -37,82 +46,31 @@ public class Notebook extends Activity implements
     private SQLiteDatabase DB;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.notebook);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment2, container, false);
 
-        FilterMenuLayout layout = (FilterMenuLayout) findViewById(R.id.filter_menu);
-        attachMenu(layout);
-
-        InitView();
-    }
-
-    private FilterMenu attachMenu(FilterMenuLayout layout){
-        return new FilterMenu.Builder(this)
-                .addItem(R.mipmap.ic_action_io)
-                .addItem(R.mipmap.ic_action_add)
-                .addItem(R.mipmap.ic_action_voice)
-                .attach(layout)
-                .withListener(listener)
-                .build();
-    }
-
-    FilterMenu.OnMenuChangeListener listener = new FilterMenu.OnMenuChangeListener() {
-        @DebugLog
-        @Override
-        public void onMenuItemClick(View view, int position) {
-            switch (position) {
-                case 0:
-                    finish();
-                    Intent intent1 = new Intent(Notebook.this, MainActivity.class);
-                    startActivity(intent1);
-                    break;
-                case 1:
-                    Intent intent = new Intent(Notebook.this, NotebookEdit.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("info", "");
-                    bundle.putInt("enter_state", 0);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    break;
-
-
+        fbutton = (FloatingActionButton) view.findViewById(R.id.notebook_plus);
+        fbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NotebookEdit.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("info", "");
+                bundle.putInt("enter_state", 0);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
-        }
+        });
+        InitView();
+        return view;
+    }
 
-        @Override
-        public void onMenuCollapse() {
-
-        }
-
-        @Override
-        public void onMenuExpand() {
-
-        }
-
-
-
-    };
     //在activity显示的时候更新listview
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
         RefreshNotesList();
     }
-
-
-    private void InitView() {
-        tv_content = (TextView) findViewById(R.id.tv_content);
-        listview = (ListView) findViewById(R.id.listview);
-        dataList = new ArrayList<Map<String, Object>>();
-        DbHelper = new NotebookDB(this);
-        DB = DbHelper.getReadableDatabase();
-
-        listview.setOnItemClickListener(this);
-        listview.setOnItemLongClickListener(this);
-
-    }
-
 
     //刷新listview
     public void RefreshNotesList() {
@@ -123,10 +81,9 @@ public class Notebook extends Activity implements
             dataList.removeAll(dataList);
             simple_adapter.notifyDataSetChanged();
         }
-
         //从数据库读取信息
         Cursor cursor = DB.query("note", null, null, null, null, null, null);
-        startManagingCursor(cursor);
+        getActivity().startManagingCursor(cursor);//不知道是不是这么改
         while (cursor.moveToNext()) {
             String name = cursor.getString(cursor.getColumnIndex("title"));
             String date = cursor.getString(cursor.getColumnIndex("date"));
@@ -135,13 +92,24 @@ public class Notebook extends Activity implements
             map.put("tv_date", date);
             dataList.add(map);
         }
-        simple_adapter = new SimpleAdapter(this, dataList, R.layout.notebook_item,
+        //不知道改成什么
+        simple_adapter = new SimpleAdapter(getActivity(), dataList, R.layout.notebook_item,
                 new String[]{"tv_content", "tv_date"}, new int[]{
                 R.id.tv_content, R.id.tv_date});
         listview.setAdapter(simple_adapter);
     }
 
+    private void InitView() {
+        tv_content = (TextView) view.findViewById(R.id.tv_content);
+        listview = (ListView) view.findViewById(R.id.listview);
+        dataList = new ArrayList<Map<String, Object>>();
+        DbHelper = new NotebookDB(getActivity());//不知道改成什么
+        DB = DbHelper.getReadableDatabase();
 
+        listview.setOnItemClickListener(this);
+        listview.setOnItemLongClickListener(this);
+
+    }
 
     // 点击listview中某一项的点击监听事件
     @Override
@@ -153,12 +121,12 @@ public class Notebook extends Activity implements
                 content.indexOf(","));
         //根据title在SQLite中查找content
         Cursor cursor = DB.query("note", null, null, null, null, null, null);
-        startManagingCursor(cursor);
+        getActivity().startManagingCursor(cursor);//不知道是不是这么改
         while (cursor.moveToNext()) {
             String name = cursor.getString(cursor.getColumnIndex("title"));
             if(name.equals(title)) {
                 String content1 = cursor.getString(cursor.getColumnIndex("content"));
-                Intent myIntent = new Intent(Notebook.this, NotebookEdit.class);
+                Intent myIntent = new Intent(getActivity(), NotebookEdit.class);//不知道改成什么
                 Bundle bundle = new Bundle();
                 bundle.putString("info_title", title);
                 bundle.putString("info_content", content1);
@@ -176,7 +144,7 @@ public class Notebook extends Activity implements
     @Override
     public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int arg2,
                                    long arg3) {
-        Builder builder = new Builder(this);
+        Builder builder = new Builder(getActivity());//不知道改成什么
         builder.setTitle("删除该日志");
         builder.setMessage("确认删除吗？");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -201,6 +169,4 @@ public class Notebook extends Activity implements
         builder.show();
         return true;
     }
-
-
 }

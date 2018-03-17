@@ -15,6 +15,7 @@
         <attr name="fm_sweepAngle" format="integer"/>
     </declare-styleable>
 
+
     <declare-styleable name="RoundSpinView">
         <attr name="menuStart" format="reference" />
     </declare-styleable>

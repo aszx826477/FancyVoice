@@ -21,8 +21,6 @@
     <!--Game part String Define-->
 
 
-
-
     <!--MainActivity part String Define-->
     <string name="welcome_explorer">
         无需滑动和点击的一款浏览器，您只需说出轻轻发出声音，便可开始我们的探索之旅，一切都由您的声音操控
@@ -33,4 +31,11 @@
     <string name="welcome_notebook">
        您只需使用声音即可转换成文字记录，支持基本的文本编辑操作，相信你会爱上这种记录文字的方式
     </string>
+    <string name="title_activity_main">趣声</string>
+    <string name="title_browser">语音浏览器</string>
+    <string name="title_game">小游戏</string>
+    <string name="title_notebook">语音备忘录</string>
+    <string name="title_about">我</string>
+
+    <string name="copyright">Copyright Version 1.0 © 2018 - 2019\nFancyVoice.All Rights Reserved.</string>
 </resources>
