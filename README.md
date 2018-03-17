@@ -12,7 +12,7 @@ buildToolsVersion "27.0.3"
 FancyVoice V1.0 (underdeveloped)
 * Gradle details
 You could refer to the following configure to gradle
-```
+
 //app/build.gradle
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.hugo'
@@ -24,7 +24,7 @@ dependencies {
 
 //library/build.gradle
 apply plugin: 'com.android.library'
-```
+
 
 ## Function
 #### Speech-Control Browser
