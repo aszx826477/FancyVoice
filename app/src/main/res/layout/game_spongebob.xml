@@ -20,7 +20,7 @@
          android:textAlignment="center"
          android:textSize="20sp"
          android:padding="10dp"
-         android:text="我很喜欢被人捏（打一卡通人物）" />"
+         android:text="@string/game_sponge_bob" />"
     
 
 </RelativeLayout>

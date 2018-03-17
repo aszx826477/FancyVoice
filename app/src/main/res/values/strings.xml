@@ -1,15 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
 
     <string name="app_name">语音助手</string>
 
-    <!--Browser part String Define-->
+    <!--Browser part string define-->
     <string name="slide_right_txtUrl_hint">请输入网址</string>
     <string name="slide_right_cancel">取消</string>
     <string name="slide_right_go">前往</string>
 
 
-    <!--Notebook part String Define-->
+    <!--Notebook part string Define-->
     <string name="edit_notebook">编辑备忘录</string>
     <string name="edit_time">编辑时间</string>
     <string name="edit_title">标题</string>
@@ -18,24 +19,23 @@
     <string name="edit_content_hint">此处备忘录事件</string>
 
 
-    <!--Game part String Define-->
+    <!--Game part string define-->
+    <string name="game_name">我有一个秘密，请猜猜我的名字（打一个刚刚出现过的名字）</string>
+    <string name="game_main_title">波比的秘密</string>
+    <string name="game_main_introduction">这是一款语音猜谜的游戏，游戏中您将会获得一句提示，然后需要说出“华为华为+你的答案”来通关。现在请说出“华为华为+开始”来启动游戏</string>
+    <string name="game_sherlock">研究世界奇案是我的他的最爱（打一人名）</string>
+    <string name="game_sponge_bob">我很喜欢被人捏（打一卡通人物）</string>
 
-
-    <!--MainActivity part String Define-->
-    <string name="welcome_explorer">
-        无需滑动和点击的一款浏览器，您只需说出轻轻发出声音，便可开始我们的探索之旅，一切都由您的声音操控
-    </string>
-    <string name="welcome_game">
-        这是我们开发的一款基于语音的小游戏，您可以尽情使用声音，享受脑洞大开的喜悦
-    </string>
-    <string name="welcome_notebook">
-       您只需使用声音即可转换成文字记录，支持基本的文本编辑操作，相信你会爱上这种记录文字的方式
-    </string>
+    <!--MainActivity part string define-->
     <string name="title_activity_main">趣声</string>
     <string name="title_browser">语音浏览器</string>
     <string name="title_game">小游戏</string>
     <string name="title_notebook">语音备忘录</string>
     <string name="title_about">我</string>
 
+    <!--Me part string define-->
+    <string name="game_entrance">语音小游戏</string>
+    <string name="about_software">关于趣声</string>
+    <string name="exit_software">退出软件</string>
     <string name="copyright">Copyright Version 1.0 © 2018 - 2019\nFancyVoice.All Rights Reserved.</string>
 </resources>

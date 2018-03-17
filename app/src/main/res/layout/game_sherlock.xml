@@ -21,6 +21,6 @@
         android:layout_alignParentLeft="true"
         android:layout_weight="0.5"
         android:gravity="center"
-        android:text="研究世界奇案是我的他的最爱（打一人名）"
+        android:text="@string/game_sherlock"
         android:textSize="20sp" />
 </LinearLayout>

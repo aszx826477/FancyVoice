@@ -19,7 +19,7 @@
    	    android:gravity="center"
         android:textSize="70sp"
         android:layout_weight="1"
-        android:text="波比的秘密" />
+        android:text="@string/game_main_title" />
     
      <TextView
         android:id="@+id/content"
@@ -28,7 +28,7 @@
    	    android:gravity="center"
         android:textSize="20sp"
         android:layout_weight="3"
-        android:text="这是一款语音猜谜的游戏，游戏中您将会获得一句提示，然后需要说出“华为华为+你的答案”来通关" />
+        android:text="@string/game_main_introduction" />
       
 
 </LinearLayout>

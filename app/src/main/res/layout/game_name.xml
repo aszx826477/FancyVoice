@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="我有一个秘密，请猜猜我的名字（打一个刚刚出现过的名字）"
+        android:text="@string/game_name"
         android:textSize="30sp" />"
 
     
