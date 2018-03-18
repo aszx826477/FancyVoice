@@ -8,25 +8,6 @@
     android:onClick="animate">
 
     <ImageView
-        android:id="@+id/search"
-        android:layout_width="314dp"
-        android:layout_height="162dp"
-        android:layout_gravity="center"
-        android:onClick="animate"
-        android:src="@drawable/search_bar" />
-
-    <EditText
-        android:id="@+id/text"
-        android:layout_width="203dp"
-        android:layout_height="55dp"
-        android:layout_gravity="center"
-        android:alpha="0"
-        android:background="@null"
-        android:textColor="#050505"
-        android:textSize="20sp"
-        android:layout_marginBottom="25dp"/>
-
-    <ImageView
         android:id="@+id/tick"
         android:src="@drawable/ic_check_black_24dp"
         android:layout_gravity="center"
@@ -47,5 +28,25 @@
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="130dp"
         android:alpha="0"/>
+
+    <EditText
+        android:id="@+id/text"
+        android:layout_width="203dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="25dp"
+        android:alpha="0"
+        android:background="@null"
+        android:textColor="#050505"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/search"
+        android:paddingTop="20dp"
+        android:layout_width="314dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:onClick="animate"
+        android:src="@drawable/search_bar" />
 
 </FrameLayout>

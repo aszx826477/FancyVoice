@@ -14,13 +14,13 @@ public class MPagerAdapter extends FragmentPagerAdapter {
     //从而可以实现每个page有不同的界面
 
     private int count=3;
-    private MFragment1 f1;
+    private MFragment1_new f1;
     private MFragment2 f2;
     private MFragment3 f3;
 
     public MPagerAdapter(FragmentManager fm) {
         super(fm);
-        f1 = new MFragment1();
+        f1 = new MFragment1_new();
         f2 = new MFragment2();
         f3 = new MFragment3();
 
