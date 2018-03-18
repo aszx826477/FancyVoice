@@ -19,7 +19,7 @@ import static android.view.View.VISIBLE;
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
 
     public static SharedPreferences preferences;
-    private ViewPager mViewPager;
+    private NoScrollViewPager mViewPager;
     public MPagerAdapter mPagerAdapter;
     public BottomNavigationView navigation;
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     //初始化方法，包括实例化，以及设置底部导航栏的监听器
     public void init() {
-        mViewPager = (ViewPager) findViewById(R.id.viewpage_container);
+        mViewPager = (NoScrollViewPager) findViewById(R.id.viewpage_container);
         mPagerAdapter = new MPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setCurrentItem(0);
