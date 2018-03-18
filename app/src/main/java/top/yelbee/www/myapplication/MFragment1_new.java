@@ -3,6 +3,7 @@ package top.yelbee.www.myapplication;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -22,6 +25,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -44,6 +49,18 @@ public class MFragment1_new extends Fragment implements View.OnClickListener, Vi
     ImageView index_bottom_home;
     ImageView index_bottom_search;
     LinearLayout index_bottom_bar;
+
+    //顶部搜索栏（fancy_title）
+    private ImageView iv;
+    private TextView text;
+    private ImageView tick;
+    private ImageView explore_icon;
+    private AnimatedVectorDrawable searchToBar;
+    private AnimatedVectorDrawable barToSearch;
+    private float offset;
+    private Interpolator interp;
+    private int duration;
+    private boolean expanded = false;
 
     //webview
     private String home_url = "http://www.baidu.com";
@@ -84,6 +101,32 @@ public class MFragment1_new extends Fragment implements View.OnClickListener, Vi
     public void init() {
         //mainActivity;
         mainActivity = (MainActivity) getActivity();
+
+        //fancy title初始化
+        iv = (ImageView) view.findViewById(R.id.search);
+        text = (TextView) view.findViewById(R.id.text);
+        tick = (ImageView) view.findViewById(R.id.tick);
+        explore_icon = (ImageView) view.findViewById(R.id.explore_icon);
+        searchToBar = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.anim_search_to_bar);
+        barToSearch = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.anim_bar_to_search);
+        interp = AnimationUtils.loadInterpolator(getContext(), android.R.interpolator.linear_out_slow_in);
+        duration = getResources().getInteger(R.integer.duration_bar);
+        tick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animate();
+                text.setText("");
+            }
+        });
+
+        //explore层覆盖
+        explore_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animate();
+                Toast.makeText(getContext(),"explore!",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         //浏览器底部操作栏
         index_bottom_left = (ImageView) view.findViewById(R.id.index_bottom_left);
@@ -133,6 +176,22 @@ public class MFragment1_new extends Fragment implements View.OnClickListener, Vi
         index_webView.setOnTouchListener(this);
     }
 
+    public void animate() {
+
+        if (!expanded) {
+            iv.setImageDrawable(searchToBar);
+            searchToBar.start();
+            //iv.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+            text.animate().alpha(1f).setStartDelay(duration - 100).setDuration(100).setInterpolator(interp);
+            //tick.animate().alpha(1f).setStartDelay(duration - 150).setDuration(100).setInterpolator(interp);
+        } else {
+            iv.setImageDrawable(barToSearch);
+            barToSearch.start();
+            //iv.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
+            text.setAlpha(0f);
+        }
+        expanded = !expanded;
+    }
 
     public void init_web_home() {
         WebSettings webSettings = index_webView.getSettings();

@@ -17,14 +17,14 @@
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
         android:width="300dp"
-        android:height="96dp"
+        android:height="70dp"
         android:viewportWidth="150"
-        android:viewportHeight="48">
+        android:viewportHeight="35">
     <path
         android:name="search"
         android:pathData="@string/path_search"
         android:strokeWidth="2"
-        android:strokeColor="#ffffff"
+        android:strokeColor="#000000"
         android:strokeAlpha="0.8"
         android:strokeLineCap="round" />
 
@@ -32,9 +32,9 @@
         android:name="bar"
         android:pathData="M0,23 L149,23"
         android:strokeWidth="2"
-        android:strokeColor="#ffffff"
+        android:strokeColor="#000000"
         android:strokeAlpha="0.8"
-        android:strokeLineCap="square" />
+        android:strokeLineCap="round" />
 
     <path
         android:name="tick"

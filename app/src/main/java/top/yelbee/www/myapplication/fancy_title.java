@@ -57,7 +57,7 @@ public class fancy_title extends Activity {
         });
     }
 
-    public void animate(View v) {
+    public void animate() {
 
         if (!expanded) {
             iv.setImageDrawable(searchToBar);
