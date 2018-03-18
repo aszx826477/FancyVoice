@@ -123,8 +123,15 @@ public class MFragment1_new extends Fragment implements View.OnClickListener, Vi
         explore_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animate();
+                //animate();
                 Toast.makeText(getContext(),"explore!",Toast.LENGTH_SHORT).show();
+                String goUrl = text.getText().toString();
+                if(goUrl.indexOf("http://")<0){
+                    goUrl="http://"+goUrl;
+                    //text.setText(goUrl);
+                }
+                //search_title_cancel.callOnClick();
+                index_webView.loadUrl(goUrl);
             }
         });
 
