@@ -10,7 +10,7 @@
 
 
 
-    <android.support.v4.view.ViewPager
+    <top.yelbee.www.myapplication.NoScrollViewPager
         android:id="@+id/viewpage_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
