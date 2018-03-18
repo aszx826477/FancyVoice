@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
@@ -18,8 +19,8 @@ import android.widget.TextView;
 public class MFragment3 extends Fragment implements View.OnClickListener {
 
     View view;
-    TextView start_game;
-    TextView start_about;
+    LinearLayout start_game;
+    LinearLayout start_about;
     Button exit_software;
 
     @Override
@@ -30,8 +31,8 @@ public class MFragment3 extends Fragment implements View.OnClickListener {
     }
 
     public void init() {
-        start_game = (TextView) view.findViewById(R.id.start_game);
-        start_about = (TextView) view.findViewById(R.id.start_about);
+        start_game = (LinearLayout) view.findViewById(R.id.start_game);
+        start_about = (LinearLayout) view.findViewById(R.id.start_about);
         exit_software = (Button) view.findViewById(R.id.exit_software);
 
         start_game.setOnClickListener(this);

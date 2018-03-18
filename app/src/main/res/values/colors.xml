@@ -17,7 +17,9 @@
     <color name="gray">#21252a</color>
     <color name="gray2">#808080</color>
     <color name="orange">#ff8c6a</color>
+    <color name="orange_50percent">#80ff8c6a</color>
     <color name="white">#ffffff</color>
+    <color name="white_50percent">#80ffffff</color>
     <color name="black">#000000</color>
     <color name="blue">#ff14445a</color>
     <color name="blue2">#50c1e9</color>
