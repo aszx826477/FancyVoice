@@ -10,6 +10,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
@@ -18,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private ViewPager mViewPager;
     public MPagerAdapter mPagerAdapter;
     public BottomNavigationView navigation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         mViewPager.setCurrentItem(0);
         mViewPager.addOnPageChangeListener(this);
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
-
 
 
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -104,6 +108,15 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                     break;
             }
         }
+    }
+
+    //底部导航栏消失
+    public void bottom_bar_disappear() {
+        navigation.setVisibility(View.GONE);
+    }
+    //底部导航栏出现
+    public void bottom_bar_appear() {
+        navigation.setVisibility(View.VISIBLE);
     }
 
 

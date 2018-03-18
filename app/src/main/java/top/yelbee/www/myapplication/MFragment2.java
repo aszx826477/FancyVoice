@@ -48,22 +48,11 @@ public class MFragment2 extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment2, container, false);
-
-        fbutton = (FloatingActionButton) view.findViewById(R.id.notebook_plus);
-        fbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NotebookEdit.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("info", "");
-                bundle.putInt("enter_state", 0);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
         InitView();
         return view;
     }
+
+
 
     //在activity显示的时候更新listview
     @Override
@@ -105,6 +94,19 @@ public class MFragment2 extends Fragment implements
         dataList = new ArrayList<Map<String, Object>>();
         DbHelper = new NotebookDB(getActivity());//不知道改成什么
         DB = DbHelper.getReadableDatabase();
+
+        fbutton = (FloatingActionButton) view.findViewById(R.id.notebook_plus);
+        fbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NotebookEdit.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("info", "");
+                bundle.putInt("enter_state", 0);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
         listview.setOnItemClickListener(this);
         listview.setOnItemLongClickListener(this);
