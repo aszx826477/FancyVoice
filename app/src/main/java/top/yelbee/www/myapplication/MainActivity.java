@@ -12,8 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
