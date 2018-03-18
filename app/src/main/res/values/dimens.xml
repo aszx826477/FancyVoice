@@ -23,4 +23,7 @@
     <dimen name="title_nav_height">36.0dip</dimen>
     <dimen name="title_bar_height">49.0dip</dimen>
 
+    <integer name="duration_bar">800</integer>
+    <integer name="duration_search">800</integer>
+
 </resources>

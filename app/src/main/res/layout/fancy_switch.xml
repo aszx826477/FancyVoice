@@ -1,0 +1,51 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:colorPrimary"
+    tools:context=".fancy_title"
+    android:onClick="animate">
+
+    <ImageView
+        android:id="@+id/search"
+        android:layout_width="314dp"
+        android:layout_height="162dp"
+        android:layout_gravity="center"
+        android:onClick="animate"
+        android:src="@drawable/search_bar" />
+
+    <EditText
+        android:id="@+id/text"
+        android:layout_width="203dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:alpha="0"
+        android:background="@null"
+        android:textColor="#050505"
+        android:textSize="20sp"
+        android:layout_marginBottom="25dp"/>
+
+    <ImageView
+        android:id="@+id/tick"
+        android:src="@drawable/ic_check_black_24dp"
+        android:layout_gravity="center"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:clickable="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="130dp"
+        android:alpha="0"/>
+
+    <ImageView
+        android:id="@+id/explore_icon"
+        android:src="@drawable/ic_check_black_24dp"
+        android:layout_gravity="center"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginLeft="130dp"
+        android:alpha="0"/>
+
+</FrameLayout>

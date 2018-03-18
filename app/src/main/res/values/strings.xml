@@ -38,4 +38,11 @@
     <string name="about_software">关于趣声</string>
     <string name="exit_software">退出软件</string>
     <string name="copyright">Copyright Version 1.0 © 2018 - 2019\nFancyVoice.All Rights Reserved.</string>
+
+    <!--animator_browser part String Define-->
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="path_search">
+       M141,17 A9,9 0 1,1 142,16 L149,23
+    </string>
 </resources>

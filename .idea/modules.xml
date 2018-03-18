@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MyApplication.iml" filepath="$PROJECT_DIR$/MyApplication.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FancyVoice.iml" filepath="$PROJECT_DIR$/FancyVoice.iml" />
+      <module fileurl="file://C:\Users\Bob\Documents\GitHub\FancyVoice\MyApplication.iml" filepath="C:\Users\Bob\Documents\GitHub\FancyVoice\MyApplication.iml" />
       <module fileurl="file://C:\Users\Bob\Documents\GitHub\VoiceAssistant\MyApplication.iml" filepath="C:\Users\Bob\Documents\GitHub\VoiceAssistant\MyApplication.iml" />
       <module fileurl="file://F:\MyApplication\VoiceAssistant.iml" filepath="F:\MyApplication\VoiceAssistant.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Bob\Documents\GitHub\FancyVoice\app\app.iml" filepath="C:\Users\Bob\Documents\GitHub\FancyVoice\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://C:\Users\Bob\Documents\GitHub\FancyVoice\library\library.iml" filepath="C:\Users\Bob\Documents\GitHub\FancyVoice\library\library.iml" />
     </modules>
   </component>
 </project>
