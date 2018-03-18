@@ -111,6 +111,7 @@ public class MFragment1_new extends Fragment implements View.OnClickListener, Vi
         barToSearch = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.anim_bar_to_search);
         interp = AnimationUtils.loadInterpolator(getContext(), android.R.interpolator.linear_out_slow_in);
         duration = getResources().getInteger(R.integer.duration_bar);
+        animate();
         tick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,7 +129,7 @@ public class MFragment1_new extends Fragment implements View.OnClickListener, Vi
                 String goUrl = text.getText().toString();
                 if(goUrl.indexOf("http://")<0){
                     goUrl="http://"+goUrl;
-                    //text.setText(goUrl);
+                    text.setText(goUrl);
                 }
                 //search_title_cancel.callOnClick();
                 index_webView.loadUrl(goUrl);
