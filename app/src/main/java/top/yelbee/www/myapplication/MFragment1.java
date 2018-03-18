@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -29,9 +30,12 @@ import android.widget.ProgressBar;
  */
 
 
-public class MFragment1 extends Fragment implements View.OnClickListener {
+public class MFragment1 extends Fragment implements View.OnClickListener, View.OnTouchListener {
     //fragment的view
     View view;
+
+    //MainActivity
+    MainActivity mainActivity;
 
     //浏览器底部操作栏
     ImageView index_bottom_left;
@@ -39,6 +43,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener {
     ImageView index_bottom_microphone;
     ImageView index_bottom_home;
     ImageView index_bottom_search;
+    LinearLayout index_bottom_bar;
 
     //webview
     private String home_url = "http://www.baidu.com";
@@ -60,6 +65,12 @@ public class MFragment1 extends Fragment implements View.OnClickListener {
     View index_background;
     ProgressBar index_title_progress;
 
+    //滑动监听坐标记录
+    float mPosX;
+    float mPosY;
+    float mCurPosX;
+    float mCurPosY;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment1, container, false);
@@ -70,13 +81,16 @@ public class MFragment1 extends Fragment implements View.OnClickListener {
 
 
     public void init() {
+        //mainActivity;
+        mainActivity = (MainActivity) getActivity();
+
         //浏览器底部操作栏
         index_bottom_left = (ImageView) view.findViewById(R.id.index_bottom_left);
         index_bottom_right = (ImageView) view.findViewById(R.id.index_bottom_right);
         index_bottom_microphone = (ImageView) view.findViewById(R.id.index_bottom_microphone);
         index_bottom_home = (ImageView) view.findViewById(R.id.index_bottom_home);
         index_bottom_search = (ImageView) view.findViewById(R.id.index_bottom_search);
-        index_webView = (WebView) view.findViewById(R.id.index_webView);
+        index_bottom_bar = (LinearLayout) view.findViewById(R.id.index_bottom_bar);
 
         //浏览器顶部搜索栏
         index_view = (LinearLayout) view.findViewById(R.id.index_view);
@@ -90,6 +104,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener {
         search_title_edit = (EditText) search_view.findViewById(R.id.search_title_edit);
 
         //其他
+        index_webView = (WebView) view.findViewById(R.id.index_webView);
         index_background = (View) view.findViewById(R.id.index_background);
         index_title_progress = (ProgressBar) index_view.findViewById(R.id.index_title_progress);
 
@@ -108,8 +123,10 @@ public class MFragment1 extends Fragment implements View.OnClickListener {
 
         //文本监听器
         search_title_edit.addTextChangedListener(search_title_edit_changed);
-    }
 
+        //web_view监听器
+        index_webView.setOnTouchListener(this);
+    }
 
 
     public void init_web_home() {
@@ -177,7 +194,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener {
 
     /**
      *
-     * @param 点击事件方法重写
+     * 点击事件重写
      */
     @Override
     public void onClick(View v) {
@@ -229,5 +246,34 @@ public class MFragment1 extends Fragment implements View.OnClickListener {
                 break;
 
         }
+    }
+    /**
+     * 设置上下滑动作监听器
+     */
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mPosX = event.getX();
+                mPosY = event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                mCurPosX = event.getX();
+                mCurPosY = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                if (mCurPosY - mPosY > 0 && (Math.abs(mCurPosY - mPosY) > 25)) {
+                    //向下滑動
+                    mainActivity.bottom_bar_appear();
+
+
+                } else if (mCurPosY - mPosY < 0 && (Math.abs(mCurPosY - mPosY) > 25)) {
+                    //向上滑动
+                    mainActivity.bottom_bar_disappear();
+                }
+                break;
+        }
+
+        return false;
     }
 }
