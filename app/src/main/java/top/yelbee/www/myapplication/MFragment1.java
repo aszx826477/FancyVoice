@@ -153,7 +153,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         index_bottom_microphone.setOnClickListener(this);
         index_bottom_home.setOnClickListener(this);
         index_bottom_search.setOnClickListener(this);
-        
+
         //web_view监听器
         //未使用
         //index_webView.setOnTouchListener(this);
