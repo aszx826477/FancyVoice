@@ -95,7 +95,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         interp = AnimationUtils.loadInterpolator(getContext(), android.R.interpolator.linear_out_slow_in);
         duration = getResources().getInteger(R.integer.duration_bar);
 
-
+        //右移参数设置
         offset = -275f * (int) getResources().getDisplayMetrics().scaledDensity;
         iv.setTranslationX(offset);
         text.setTranslationX(offset);
@@ -106,7 +106,8 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         tick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animate();
+                //animate();
+                Toast.makeText(getContext(),"clear!",Toast.LENGTH_SHORT).show();
                 text.setText("");
             }
         });
@@ -149,6 +150,9 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
             public void onPageTop(int l, int t, int oldl, int oldt) {
                 //滑动到顶部
                 animate();
+               /* if(!expanded){
+                    animate();
+                }*/
                 mainActivity.bottom_bar_appear();
             }
 
@@ -173,6 +177,10 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         //动态改变layout_width（触控bug的修复）
         //FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)iv.getLayoutParams();
         //params.width = width_trans(getActivity() , 0);
+
+
+        //入口animate(),修复初始化bug
+        animate();
     }
 
     public void animate() {
@@ -181,16 +189,21 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
             iv.setImageDrawable(searchToBar);
             searchToBar.start();
             iv.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-            text.animate().alpha(1f).setStartDelay(duration - 100).setDuration(100).setInterpolator(interp);
+            explore_icon.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+            text.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+            tick.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+            //text.animate().alpha(1f).setStartDelay(duration - 100).setDuration(100).setInterpolator(interp);
             //tick.animate().alpha(1f).setStartDelay(duration - 150).setDuration(100).setInterpolator(interp);
         } else {
             iv.setImageDrawable(barToSearch);
             barToSearch.start();
             iv.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
-            text.setAlpha(0f);
-
-
+            text.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
+            explore_icon.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
+            tick.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
+            //text.setAlpha(0f);
         }
+        //动画一次改变一次boolean
         expanded = !expanded;
     }
 
@@ -272,6 +285,9 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 if (mCurPosY - mPosY > 0 && (Math.abs(mCurPosY - mPosY) > 25)) {
                     //向下滑動
                     mainActivity.bottom_bar_appear();
+                    /*if(expanded){
+                        animate();
+                    }*/
 
 
                 } else if (mCurPosY - mPosY < 0 && (Math.abs(mCurPosY - mPosY) > 25)) {
