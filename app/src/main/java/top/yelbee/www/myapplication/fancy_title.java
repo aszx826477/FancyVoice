@@ -37,8 +37,8 @@ public class fancy_title extends Activity {
         duration = getResources().getInteger(R.integer.duration_bar);
         // iv is sized to hold the search+bar so when only showing the search icon, translate the
         // whole view left by half the difference to keep it centered
-        //offset = -71f * (int) getResources().getDisplayMetrics().scaledDensity;
-        //iv.setTranslationX(offset);
+        offset = -71f * (int) getResources().getDisplayMetrics().scaledDensity;
+        iv.setTranslationX(offset);
 
         //clear层覆盖
         tick.setOnClickListener(new View.OnClickListener() {
