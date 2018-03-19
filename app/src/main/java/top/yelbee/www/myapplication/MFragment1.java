@@ -1,11 +1,14 @@
 package top.yelbee.www.myapplication;
 
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,8 +19,10 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,6 +94,13 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         barToSearch = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.anim_bar_to_search);
         interp = AnimationUtils.loadInterpolator(getContext(), android.R.interpolator.linear_out_slow_in);
         duration = getResources().getInteger(R.integer.duration_bar);
+
+
+        offset = -275f * (int) getResources().getDisplayMetrics().scaledDensity;
+        iv.setTranslationX(offset);
+        text.setTranslationX(offset);
+        explore_icon.setTranslationX(offset);
+        tick.setTranslationX(offset);
         //animate();
 
         tick.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +170,9 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         //未使用
         //index_webView.setOnTouchListener(this);
 
+        //动态改变layout_width（触控bug的修复）
+        //FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)iv.getLayoutParams();
+        //params.width = width_trans(getActivity() , 0);
     }
 
     public void animate() {
@@ -165,17 +180,26 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         if (!expanded) {
             iv.setImageDrawable(searchToBar);
             searchToBar.start();
-            //iv.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+            iv.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
             text.animate().alpha(1f).setStartDelay(duration - 100).setDuration(100).setInterpolator(interp);
             //tick.animate().alpha(1f).setStartDelay(duration - 150).setDuration(100).setInterpolator(interp);
         } else {
             iv.setImageDrawable(barToSearch);
             barToSearch.start();
-            //iv.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
+            iv.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
             text.setAlpha(0f);
+
+
         }
         expanded = !expanded;
     }
+
+    //width_trans(context , width)
+    public int width_trans(Context context , float dipValue){
+        Resources r = getContext().getResources();
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , dipValue , r.getDisplayMetrics());
+    }
+
 
     public void init_web_home() {
         WebSettings webSettings = index_webView.getSettings();

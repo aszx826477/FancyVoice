@@ -18,19 +18,8 @@
         android:alpha="0"/>
 
     <ImageView
-        android:id="@+id/explore_icon"
-        android:src="@drawable/ic_check_black_24dp"
-        android:layout_gravity="center"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:clickable="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginLeft="130dp"
-        android:alpha="0"/>
-
-    <ImageView
         android:id="@+id/search"
-        android:layout_width="314dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/search_bar" />
@@ -45,5 +34,15 @@
         android:background="@null"
         android:textColor="#050505"
         android:textSize="20sp" />
+
+    <ImageView android:layout_height="60dp"
+        android:layout_width="60dp"
+        android:alpha="0"
+        android:layout_marginBottom="25dp"
+        android:clickable="true"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_check_black_24dp"
+        android:id="@+id/explore_icon"
+        android:layout_marginLeft="130dp"/>
 
 </FrameLayout>
