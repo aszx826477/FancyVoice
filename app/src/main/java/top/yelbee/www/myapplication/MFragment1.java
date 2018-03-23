@@ -113,20 +113,33 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         });
 
         //explore层覆盖
-        explore_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //animate();
-                Toast.makeText(getContext(),"explore!",Toast.LENGTH_SHORT).show();
-                String goUrl = text.getText().toString();
-                if(goUrl.indexOf("http://")<0){
-                    goUrl="http://"+goUrl;
-                    text.setText(goUrl);
+            explore_icon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(expanded){
+                        Toast.makeText(getContext(), "explore!", Toast.LENGTH_SHORT).show();
+                        String goUrl = text.getText().toString();
+                        if (goUrl.indexOf("http://") < 0) {
+                            goUrl = "http://" + goUrl;
+                            text.setText(goUrl);
+                        }
+                        //search_title_cancel.callOnClick();
+                        index_webView.loadUrl(goUrl);
+                    }
+                    else{
+                        iv.setImageDrawable(searchToBar);
+                        searchToBar.start();
+                        iv.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+                        explore_icon.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+                        text.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+                        tick.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+                        expanded = !expanded;
+                    }
                 }
-                //search_title_cancel.callOnClick();
-                index_webView.loadUrl(goUrl);
-            }
-        });
+            });
+
+
+
 
         //浏览器底部操作栏
         index_bottom_left = (ImageView) view.findViewById(R.id.index_bottom_left);

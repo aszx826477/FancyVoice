@@ -33,7 +33,7 @@
         android:alpha="1"
         android:background="@null"
         android:textColor="#050505"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <ImageView
         android:layout_height="60dp"
