@@ -112,7 +112,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
             }
         });
 
-        //explore层覆盖
+        //explore层覆盖,expanded监听事件切换
             explore_icon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
