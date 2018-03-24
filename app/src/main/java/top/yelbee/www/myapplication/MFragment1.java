@@ -123,17 +123,11 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                             goUrl = "http://" + goUrl;
                             text.setText(goUrl);
                         }
-                        //search_title_cancel.callOnClick();
                         index_webView.loadUrl(goUrl);
+                        //anim_shrink();
                     }
                     else{
-                        iv.setImageDrawable(searchToBar);
-                        searchToBar.start();
-                        iv.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-                        explore_icon.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-                        text.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-                        tick.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-                        expanded = !expanded;
+                       anim_stretch();
                     }
                 }
             });
@@ -157,15 +151,19 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
             public void onScrollChanged(int l, int t, int oldl, int oldt) {
                 //滑动中
                 mainActivity.bottom_bar_disappear();
+                if(expanded){
+                    anim_shrink();
+                }
             }
 
             @Override
             public void onPageTop(int l, int t, int oldl, int oldt) {
-                //滑动到顶部
-                animate();
-               /* if(!expanded){
-                    animate();
-                }*/
+                //滑动到顶部搜索栏展开
+                if(!expanded){
+                   anim_stretch();
+                }
+
+                //bottom_bar_appear动画
                 mainActivity.bottom_bar_appear();
             }
 
@@ -199,31 +197,32 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     public void animate() {
 
         if (!expanded) {
-            iv.setImageDrawable(searchToBar);
-            searchToBar.start();
-            iv.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-            explore_icon.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-            text.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-            tick.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-            //text.animate().alpha(1f).setStartDelay(duration - 100).setDuration(100).setInterpolator(interp);
-            //tick.animate().alpha(1f).setStartDelay(duration - 150).setDuration(100).setInterpolator(interp);
+            anim_stretch();
         } else {
-            iv.setImageDrawable(barToSearch);
-            barToSearch.start();
-            iv.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
-            text.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
-            explore_icon.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
-            tick.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
-            //text.setAlpha(0f);
+            anim_shrink();
         }
-        //动画一次改变一次boolean
+    }
+
+    //搜索栏伸展动画
+    public void anim_stretch(){
+        iv.setImageDrawable(searchToBar);
+        searchToBar.start();
+        iv.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+        explore_icon.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+        text.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
+        tick.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
         expanded = !expanded;
     }
 
-    //width_trans(context , width)
-    public int width_trans(Context context , float dipValue){
-        Resources r = getContext().getResources();
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP , dipValue , r.getDisplayMetrics());
+    //搜索栏收缩动画
+    public void anim_shrink(){
+        iv.setImageDrawable(barToSearch);
+        barToSearch.start();
+        iv.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
+        text.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
+        explore_icon.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
+        tick.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
+        expanded = !expanded;
     }
 
 
@@ -298,10 +297,6 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 if (mCurPosY - mPosY > 0 && (Math.abs(mCurPosY - mPosY) > 25)) {
                     //向下滑動
                     mainActivity.bottom_bar_appear();
-                    /*if(expanded){
-                        animate();
-                    }*/
-
 
                 } else if (mCurPosY - mPosY < 0 && (Math.abs(mCurPosY - mPosY) > 25)) {
                     //向上滑动
