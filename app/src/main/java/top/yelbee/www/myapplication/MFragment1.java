@@ -4,12 +4,18 @@ package top.yelbee.www.myapplication;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -57,7 +63,6 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     //浏览器底部操作栏
     ImageView index_bottom_left;
     ImageView index_bottom_right;
-    ImageView index_bottom_microphone;
     ImageView index_bottom_home;
     ImageView index_bottom_search;
     LinearLayout index_bottom_bar;
@@ -93,6 +98,13 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     private static final int MIN = -20;
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
     private int curThresh= MIN;
+
+    //搜索引擎弹出窗
+    private popup_engine engine_select;
+    private ImageView baidu1;
+    private ImageView Google1;
+    private Drawable baidu_draw;
+    private Drawable Google_draw;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -162,10 +174,15 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         //浏览器底部操作栏
         index_bottom_left = (ImageView) view.findViewById(R.id.index_bottom_left);
         index_bottom_right = (ImageView) view.findViewById(R.id.index_bottom_right);
-        index_bottom_microphone = (ImageView) view.findViewById(R.id.index_bottom_microphone);
         index_bottom_home = (ImageView) view.findViewById(R.id.index_bottom_home);
         index_bottom_search = (ImageView) view.findViewById(R.id.index_bottom_search);
         index_bottom_bar = (LinearLayout) view.findViewById(R.id.index_bottom_bar);
+
+        //搜索引擎图标及图片src
+        Google1 = (ImageView) view.findViewById(R.id.google);
+        baidu1 = (ImageView) view.findViewById(R.id.baidu);
+        baidu_draw = getResources().getDrawable(R.drawable.baidu);
+        Google_draw = getResources().getDrawable(R.drawable.google);
 
         //其他
         index_webView = (ScrollWebView) view.findViewById(R.id.index_webView);
@@ -201,7 +218,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         //设置监听器---底部操作栏
         index_bottom_left.setOnClickListener(this);
         index_bottom_right.setOnClickListener(this);
-        index_bottom_microphone.setOnClickListener(this);
+        //index_bottom_microphone.setOnClickListener(this);
         index_bottom_home.setOnClickListener(this);
         index_bottom_search.setOnClickListener(this);
 
@@ -290,12 +307,13 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
             case R.id.index_bottom_right:
                 index_webView.goForward();
                 break;
-            case R.id.index_bottom_microphone:
-                break;
+
             case R.id.index_bottom_home:
                 index_webView.loadUrl(home_url);
                 break;
+
             case R.id.index_bottom_search:
+                showPopFromBottom(view);
                 break;
 
         }
@@ -474,6 +492,19 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
 
         return stringBuilder.toString();
     }
+
+    //PopupWindow设置
+    public void showPopFromBottom(View view) {
+        engine_select = new popup_engine(getContext());
+        //showAtLocation(View parent, int gravity, int x, int y)
+        engine_select.showAtLocation(view.findViewById(R.id.fragment1), Gravity.CENTER, 0, 0);
+    }
+
+    //Toast替换
+    public void alert(String str){
+        Toast.makeText(getContext(),str,Toast.LENGTH_SHORT).show();
+    }
+
 }
 
 

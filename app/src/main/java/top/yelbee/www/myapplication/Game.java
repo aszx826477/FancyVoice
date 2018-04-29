@@ -66,7 +66,6 @@ public class Game extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		//setContentView(R.layout.activity_main);
 		setContentView(R.layout.game_main);
 		SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5aa9c8f7");  //Ѷ��ע��
 		mIvw=VoiceWakeuper.createWakeuper(this, null);    //(Context arg0, InitListener arg1)
@@ -293,7 +292,7 @@ public class Game extends Activity {
 			public void run() {
 				// TODO Auto-generated method stub
 				try{  
-		            Thread.sleep(2000);     // sleep 1000ms
+		            Thread.sleep(2000);     // sleep 2000ms
 		            Message message = new Message();  
 		            message.what = 3;  
 		            handler.sendMessage(message);  

@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="47dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:alpha = "0.5">
 
     <ImageView
         android:id="@+id/index_bottom_left"
@@ -24,15 +25,7 @@
         android:padding="5dp"
         android:layout_weight="1"
         />
-    <ImageView
-        android:id="@+id/index_bottom_microphone"
-        app:srcCompat="@drawable/browser_microphone"
-        android:background="@color/orange"
-        android:layout_width="30dp"
-        android:layout_height="47dp"
-        android:padding="7dp"
-        android:layout_weight="1"
-        />
+
     <ImageView
         android:id="@+id/index_bottom_home"
         app:srcCompat="@drawable/browser_home"

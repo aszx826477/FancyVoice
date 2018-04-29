@@ -20,8 +20,8 @@
 
 
     <!--Game part string define-->
-    <string name="game_name">我有一个秘密，请猜猜我的名字（打一个刚刚出现过的名字）</string>
-    <string name="game_main_title">波比的秘密</string>
+    <string name="game_name">我有一个秘密，猜猜我是谁</string>
+    <string name="game_main_title">Bob got secrets</string>
     <string name="game_main_introduction">这是一款语音猜谜的游戏，游戏中您将会获得一句提示，然后需要说出“华为华为+你的答案”来通关。现在请说出“华为华为+开始”来启动游戏</string>
     <string name="game_sherlock">研究世界奇案是我的他的最爱（打一人名）</string>
     <string name="game_sponge_bob">我很喜欢被人捏（打一卡通人物）</string>

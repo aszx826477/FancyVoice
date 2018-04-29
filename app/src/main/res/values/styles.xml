@@ -97,4 +97,13 @@
         <item name="android:backgroundDimEnabled">true</item>
         ;!-- 模糊 -->
     </style>
+
+    <style name="engine_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/drag_up</item>
+        <item name="android:windowExitAnimation">@anim/drag_down</item>
+    </style>
+
+    <style name="engine_out" parent="android:Animation">
+        <item name="android:windowExitAnimation">@anim/drag_down</item>
+    </style>
 </resources>

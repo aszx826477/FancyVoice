@@ -15,11 +15,11 @@
     <TextView
         android:id="@+id/topic"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"   
-   	    android:gravity="center"
-        android:textSize="70sp"
+        android:layout_height="394dp"
         android:layout_weight="1"
-        android:text="@string/game_main_title" />
+        android:gravity="center"
+        android:text="Bob's secrets"
+        android:textSize="60sp" />
     
      <TextView
         android:id="@+id/content"
