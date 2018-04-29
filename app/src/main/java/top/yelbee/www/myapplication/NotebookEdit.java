@@ -200,7 +200,8 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
     /*
     语音听写参数设置
     */
-    public void setParam(){
+    public void setParam()
+    {
         // 清空参数
         mIat.setParameter(SpeechConstant.PARAMS, null);
         // 设置引擎
@@ -233,7 +234,6 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
 
 
     }
-
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if (lag_sel.isChecked()) {

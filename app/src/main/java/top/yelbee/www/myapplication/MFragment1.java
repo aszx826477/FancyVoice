@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,6 +26,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechEvent;
+import com.iflytek.cloud.SpeechUtility;
+import com.iflytek.cloud.VoiceWakeuper;
+import com.iflytek.cloud.WakeuperListener;
+import com.iflytek.cloud.WakeuperResult;
+import com.iflytek.cloud.util.ResourceUtil;
+
+import java.util.ArrayList;
 
 
 /**
@@ -71,12 +85,25 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     float mPosY;
     float mCurPosX;
     float mCurPosY;
+    long mStarttime;
+
+    //语音模块变量
+    private VoiceWakeuper mIvw;
+    private static final int MAX = 60;
+    private static final int MIN = -20;
+    private String mEngineType = SpeechConstant.TYPE_CLOUD;
+    private int curThresh= MIN;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment1, container, false);
         init();
         init_web_home();
+
+        //语音模块注册
+        SpeechUtility.createUtility(getContext(),SpeechConstant.APPID + "=5aa9c8f7");  //Ѷ��ע��
+        mIvw = VoiceWakeuper.createWakeuper(getContext(), null);    //(Context arg0, InitListener arg1)
+        start_waker();
         return view;
     }
 
@@ -107,32 +134,29 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
             @Override
             public void onClick(View v) {
                 //animate();
-                Toast.makeText(getContext(),"clear!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "clear!", Toast.LENGTH_SHORT).show();
                 text.setText("");
             }
         });
 
         //explore层覆盖,expanded监听事件切换
-            explore_icon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(expanded){
-                        Toast.makeText(getContext(), "explore!", Toast.LENGTH_SHORT).show();
-                        String goUrl = text.getText().toString();
-                        if (goUrl.indexOf("http://") < 0) {
-                            goUrl = "http://" + goUrl;
-                            text.setText(goUrl);
-                        }
-                        index_webView.loadUrl(goUrl);
-                        //anim_shrink();
+        explore_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (expanded) {
+                    Toast.makeText(getContext(), "explore!", Toast.LENGTH_SHORT).show();
+                    String goUrl = text.getText().toString();
+                    if (goUrl.indexOf("http://") < 0) {
+                        goUrl = "http://" + goUrl;
+                        text.setText(goUrl);
                     }
-                    else{
-                       anim_stretch();
-                    }
+                    index_webView.loadUrl(goUrl);
+                    //anim_shrink();
+                } else {
+                    anim_stretch();
                 }
-            });
-
-
+            }
+        });
 
 
         //浏览器底部操作栏
@@ -151,7 +175,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
             public void onScrollChanged(int l, int t, int oldl, int oldt) {
                 //滑动中
                 mainActivity.bottom_bar_disappear();
-                if(expanded){
+                if (expanded) {
                     anim_shrink();
                 }
             }
@@ -159,8 +183,8 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
             @Override
             public void onPageTop(int l, int t, int oldl, int oldt) {
                 //滑动到顶部搜索栏展开
-                if(!expanded){
-                   anim_stretch();
+                if (!expanded) {
+                    anim_stretch();
                 }
 
                 //bottom_bar_appear动画
@@ -180,7 +204,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         index_bottom_microphone.setOnClickListener(this);
         index_bottom_home.setOnClickListener(this);
         index_bottom_search.setOnClickListener(this);
-        
+
         //web_view监听器
         //未使用
         //index_webView.setOnTouchListener(this);
@@ -204,7 +228,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     }
 
     //搜索栏伸展动画
-    public void anim_stretch(){
+    public void anim_stretch() {
         iv.setImageDrawable(searchToBar);
         searchToBar.start();
         iv.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
@@ -215,7 +239,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     }
 
     //搜索栏收缩动画
-    public void anim_shrink(){
+    public void anim_shrink() {
         iv.setImageDrawable(barToSearch);
         barToSearch.start();
         iv.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
@@ -231,7 +255,8 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAllowFileAccess(true);
         webSettings.setSupportZoom(true);
-        webSettings.setBuiltInZoomControls(false);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);    //隐藏缩放控制
 
         homeWebViewClient = new WebViewClient() {
 
@@ -250,7 +275,6 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     }
 
     /**
-     *
      * 点击事件重写
      */
     @Override
@@ -278,12 +302,12 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     }
 
     /**
-     * 设置上下滑动作监听器
+     * 设置上下滑动作监听器(motion_event)
      * 未使用
      */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        switch(event.getAction()) {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mPosX = event.getX();
                 mPosY = event.getY();
@@ -303,8 +327,153 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                     mainActivity.bottom_bar_disappear();
                 }
                 break;
+
         }
 
         return false;
     }
+    //语音模块函数
+    private void start_waker() {
+        // TODO Auto-generated method stub
+        mIvw=VoiceWakeuper.getWakeuper();    //�ǿ��жϣ���ֹ��ָ��
+        if(mIvw!=null) {
+            //resultString="";
+            //recoString="";
+            //ed1.setText(resultString);
+
+            final String resPath= ResourceUtil.generateResourcePath(getContext(), ResourceUtil.RESOURCE_TYPE.assets, "5aa9c8f7"+".jet");
+
+            mIvw.setParameter(SpeechConstant.KEEP_ALIVE, "1");
+            mIvw.setParameter(SpeechConstant.PARAMS, null);
+            mIvw.setParameter(SpeechConstant.ENGINE_TYPE, mEngineType);
+            mIvw.setParameter(ResourceUtil.IVW_RES_PATH, resPath);
+            mIvw.setParameter(SpeechConstant.IVW_SST, "oneshot");  //ʶ��ģʽ��one_shot
+            mIvw.setParameter(SpeechConstant.RESULT_TYPE, "json");
+            mIvw.setParameter(SpeechConstant.IVW_THRESHOLD, "0:"+curThresh);
+            mIvw.setParameter(SpeechConstant.IVW_SHOT_WORD, "0");  //��Ϊ��Ϊ
+            mIvw.setParameter(SpeechConstant.ASR_PTT, "0");
+            mIvw.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+            mIvw.startListening(mWakeupListener);
+        }
+    }
+
+    private WakeuperListener mWakeupListener = new WakeuperListener() {
+
+        @Override
+        public void onVolumeChanged(int arg0) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onResult(WakeuperResult arg0) {
+            // TODO Auto-generated method stub
+            //String text=arg0.getResultString();
+            Toast.makeText(getContext(), "I'm listening...", Toast.LENGTH_SHORT).show();
+            //ed1.setText(text);
+            //ed2.setText(null);
+        }
+
+        @Override
+        public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {    //knot to fix
+            // TODO Auto-generated method stub
+            //RecognizerResult result=((RecognizerResult)arg3.get(SpeechEvent.KEY_EVENT_IVW_RESULT));
+            //recoString= result.getResultString();
+            //ed2.setText(recoString);
+            if (SpeechEvent.EVENT_IVW_RESULT==arg0) {
+                //ed2.setText(null);
+                RecognizerResult result=(RecognizerResult) arg3.get(SpeechEvent.KEY_EVENT_IVW_RESULT);
+                String final_stream = parseData(result.getResultString());
+
+                //matching(final_stream, getWindow().getDecorView());
+                start_waker();
+            }
+
+        }
+
+        @Override
+        public void onError(SpeechError arg0) {
+            // TODO Auto-generated method stub
+            if(arg0.getErrorCode()==10118) {
+                Toast.makeText(getContext(), "It takes me quite long to expect your answer!?", Toast.LENGTH_SHORT).show();
+                start_waker();
+            }
+        }
+
+        @Override
+        public void onBeginOfSpeech() {
+            // TODO Auto-generated method stub
+            Toast.makeText(getContext(), "u r welcome to begin", Toast.LENGTH_SHORT).show();
+        }
+    };
+/**
+* 致谢JDK 8，语音指令：
+*/
+    public void matching(String str){
+        switch (str){
+            case "上":
+
+                break;
+
+            case "下":
+
+                break;
+
+            case "前进":
+
+                break;
+
+            case "后退":
+
+                break;
+
+            case "放大":
+
+                break;
+
+            case "阅读":
+
+                break;
+
+            case "引擎":
+
+                break;
+
+            default :
+                if (expanded) {
+                    Toast.makeText(getContext(),"exploring "+str , Toast.LENGTH_SHORT).show();
+                    String goUrl = "http://www.baidu.com/s?wd="+str;
+                    text.setText(goUrl);
+                    index_webView.loadUrl(goUrl);
+                } else {
+                    anim_stretch();
+                    Toast.makeText(getContext(),"exploring "+str , Toast.LENGTH_SHORT).show();
+                    String goUrl = "http://www.baidu.com/s?wd="+str;
+                    text.setText(goUrl);
+                    index_webView.loadUrl(goUrl);
+                }
+                break;
+        }
+    }
+
+    private String parseData(String resultString) {
+
+
+        Gson gson = new Gson();
+
+        bean xfBean = gson.fromJson(resultString, bean.class);
+
+        ArrayList<bean.WS> ws = xfBean.ws;
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for ( bean.WS w: ws) {
+            String text = w.cw.get(0).w;
+            stringBuilder.append(text);
+        }
+
+        return stringBuilder.toString();
+    }
 }
+
+
