@@ -11,7 +11,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private NoScrollViewPager mViewPager;
     public MPagerAdapter mPagerAdapter;
     public BottomNavigationView navigation;
+    private LinearLayout index_bottom_bar;
 
 
     @Override
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         mViewPager.setCurrentItem(0);
         mViewPager.addOnPageChangeListener(this);
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        index_bottom_bar = (LinearLayout)findViewById(R.id.index_bottom_bar);
 
 
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -110,10 +114,22 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     //底部导航栏消失
     public void bottom_bar_disappear() {
+        //navigation.setVisibility(View.GONE);
+        // 初始化需要加载的动画资源
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.drag_down);
+
+        // 将TextView执行Animation动画
+        navigation.startAnimation(animation);
         navigation.setVisibility(View.GONE);
     }
     //底部导航栏出现
     public void bottom_bar_appear() {
+        //navigation.setVisibility(View.VISIBLE);
+        // 初始化需要加载的动画资源
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.drag_up);
+
+        // 将TextView执行Animation动画
+        navigation.startAnimation(animation);
         navigation.setVisibility(View.VISIBLE);
     }
 

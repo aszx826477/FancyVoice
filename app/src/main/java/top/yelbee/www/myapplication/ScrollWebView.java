@@ -16,6 +16,7 @@ public class ScrollWebView extends WebView {
     }
 
     public ScrollWebView(Context context, AttributeSet attrs) {
+        //调用父类同形参构造方法
         super(context, attrs);
     }
 
@@ -49,9 +50,9 @@ public class ScrollWebView extends WebView {
     }
 
     public interface OnScrollChangeListener {
-        public void onPageEnd(int l, int t, int oldl, int oldt);
-        public void onPageTop(int l, int t, int oldl, int oldt);
-        public void onScrollChanged(int l, int t, int oldl, int oldt);
+        void onPageEnd(int l, int t, int oldl, int oldt);
+        void onPageTop(int l, int t, int oldl, int oldt);
+        void onScrollChanged(int l, int t, int oldl, int oldt);
 
     }
 }

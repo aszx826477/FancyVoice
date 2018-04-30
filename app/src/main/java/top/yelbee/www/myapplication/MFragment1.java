@@ -191,7 +191,10 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
             @Override
             public void onScrollChanged(int l, int t, int oldl, int oldt) {
                 //滑动中
-                mainActivity.bottom_bar_disappear();
+                if((mainActivity.navigation).getVisibility()==View.VISIBLE){
+                    mainActivity.bottom_bar_disappear();
+                }
+
                 if (expanded) {
                     anim_shrink();
                 }
