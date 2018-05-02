@@ -43,4 +43,13 @@
         android:layout_weight="1"
         />
 
+    <ImageView
+        android:id="@+id/auto_scroll"
+        app:srcCompat="@drawable/baidu"
+        android:layout_width="30dp"
+        android:layout_height="47dp"
+        android:padding="10dp"
+        android:layout_weight="1"
+        />
+
 </LinearLayout>

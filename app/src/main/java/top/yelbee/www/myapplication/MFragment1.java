@@ -11,8 +11,10 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -66,6 +68,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     ImageView index_bottom_home;
     ImageView index_bottom_search;
     LinearLayout index_bottom_bar;
+    ImageView auto_scroll;
 
     //顶部搜索栏（fancy_title）
     private ImageView iv;
@@ -84,6 +87,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     ScrollWebView index_webView;
     WebViewClient homeWebViewClient;
     WebChromeClient homeWebChromeClient;
+    LinearLayout web_container;
 
     //滑动监听坐标记录
     float mPosX;
@@ -105,6 +109,13 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     private ImageView Google1;
     private Drawable baidu_draw;
     private Drawable Google_draw;
+
+
+    //语音指令句柄
+    private Handler mHandler = new Handler();
+
+    //ScrollWebView触底判断符
+    private boolean bottom_flag=false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -177,6 +188,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         index_bottom_home = (ImageView) view.findViewById(R.id.index_bottom_home);
         index_bottom_search = (ImageView) view.findViewById(R.id.index_bottom_search);
         index_bottom_bar = (LinearLayout) view.findViewById(R.id.index_bottom_bar);
+        auto_scroll = (ImageView) view.findViewById(R.id.auto_scroll);
 
         //搜索引擎图标及图片src
         Google1 = (ImageView) view.findViewById(R.id.google);
@@ -185,6 +197,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         Google_draw = getResources().getDrawable(R.drawable.google);
 
         //其他
+        web_container = (LinearLayout) view.findViewById(R.id.web_container);
         index_webView = (ScrollWebView) view.findViewById(R.id.index_webView);
         index_webView.setOnScrollChangeListener(new ScrollWebView.OnScrollChangeListener() {
 
@@ -214,6 +227,8 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
             @Override
             public void onPageEnd(int l, int t, int oldl, int oldt) {
                 //滑动到底部
+                bottom_flag=true;
+
             }
         });
 
@@ -225,16 +240,6 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         index_bottom_home.setOnClickListener(this);
         index_bottom_search.setOnClickListener(this);
 
-        //web_view监听器
-        //未使用
-        //index_webView.setOnTouchListener(this);
-
-        //动态改变layout_width（触控bug的修复）
-        //FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)iv.getLayoutParams();
-        //params.width = width_trans(getActivity() , 0);
-
-
-        //入口animate(),修复初始化bug
         animate();
     }
 
@@ -312,13 +317,20 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 break;
 
             case R.id.index_bottom_home:
-                index_webView.loadUrl(home_url);
+                //index_webView.loadUrl(home_url);
+
+                mHandler.post(ScrollRunnable);
+
+                //auto_scroll.setClickable(false);
                 break;
 
             case R.id.index_bottom_search:
                 showPopFromBottom(view);
                 break;
 
+            case R.id.auto_scroll:
+                mHandler.post(ScrollRunnable);
+                //auto_scroll.setClickable(false);
         }
     }
 
@@ -453,7 +465,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 break;
 
             case "阅读":
-
+                mHandler.post(ScrollRunnable);
                 break;
 
             case "引擎":
@@ -508,6 +520,30 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         Toast.makeText(getContext(),str,Toast.LENGTH_SHORT).show();
     }
 
+    private Runnable ScrollRunnable = new Runnable() {
+        @Override
+        public void run() {
+            /**
+             * getMeasuredHeight() retrieve the actual height of view(whether visible), getHeight
+             * retrieve the height of the view visible
+             **/
+            int off = web_container.getMeasuredHeight() - index_webView.getHeight();
+            if (off > 0) {
+                index_webView.scrollBy(0, 5);
+                Log.i("measured:",String.valueOf(web_container.getMeasuredHeight()));
+                Log.i("webview:",String.valueOf(index_webView.getHeight()));
+                Log.i("scrollY:",String.valueOf(index_webView.getScrollY()));
+                if (bottom_flag==true) {
+                    alert("bottom!");
+                    //Thread.currentThread().interrupt();
+                    mHandler.removeCallbacks(ScrollRunnable);
+                } else {
+                    mHandler.postDelayed(this, 10);
+                }
+            }
+        }
+    };
 }
+
 
 
