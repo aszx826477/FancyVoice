@@ -318,10 +318,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 break;
 
             case R.id.index_bottom_home:
-                //index_webView.loadUrl(home_url);
-                bottom_flag=false;
-                mHandler.post(ScrollRunnable);
-
+                index_webView.loadUrl(home_url);
                 //auto_scroll.setClickable(false);
                 break;
 
@@ -330,7 +327,9 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 break;
 
             case R.id.auto_scroll:
-
+                bottom_flag=false;
+                mHandler.post(ScrollRunnable);
+                break;
         }
     }
 
@@ -417,7 +416,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 //ed2.setText(null);
                 RecognizerResult result=(RecognizerResult) arg3.get(SpeechEvent.KEY_EVENT_IVW_RESULT);
                 String final_stream = parseData(result.getResultString());
-
+                matching(final_stream);
                 //matching(final_stream, getWindow().getDecorView());
                 start_waker();
             }
@@ -465,11 +464,14 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 break;
 
             case "阅读":
+                alert("阅读模式");
+                bottom_flag=false;
                 mHandler.post(ScrollRunnable);
                 break;
 
             case "引擎":
-
+                alert("引擎选择");
+                showPopFromBottom(view);
                 break;
 
             default :
