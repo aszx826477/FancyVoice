@@ -211,6 +211,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 if (expanded) {
                     anim_shrink();
                 }
+
             }
 
             @Override
@@ -318,7 +319,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
 
             case R.id.index_bottom_home:
                 //index_webView.loadUrl(home_url);
-
+                bottom_flag=false;
                 mHandler.post(ScrollRunnable);
 
                 //auto_scroll.setClickable(false);
@@ -329,8 +330,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 break;
 
             case R.id.auto_scroll:
-                mHandler.post(ScrollRunnable);
-                //auto_scroll.setClickable(false);
+
         }
     }
 
@@ -529,16 +529,17 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
              **/
             int off = web_container.getMeasuredHeight() - index_webView.getHeight();
             if (off > 0) {
-                index_webView.scrollBy(0, 5);
+                index_webView.scrollBy(0, 1);
                 Log.i("measured:",String.valueOf(web_container.getMeasuredHeight()));
                 Log.i("webview:",String.valueOf(index_webView.getHeight()));
                 Log.i("scrollY:",String.valueOf(index_webView.getScrollY()));
                 if (bottom_flag==true) {
-                    alert("bottom!");
+                    //alert("bottom!");
                     //Thread.currentThread().interrupt();
-                    mHandler.removeCallbacks(ScrollRunnable);
+                    //mHandler.removeCallbacks(ScrollRunnable);
+                    //return;
                 } else {
-                    mHandler.postDelayed(this, 10);
+                    mHandler.postDelayed(this, 2);
                 }
             }
         }
