@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
+import android.transition.TransitionSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -28,13 +31,14 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.support.v7.widget.Toolbar;
 import com.google.gson.Gson;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
@@ -46,7 +50,11 @@ import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.iflytek.cloud.util.ResourceUtil;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+
+import static android.transition.TransitionManager.beginDelayedTransition;
 
 
 /**
@@ -70,17 +78,13 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
     LinearLayout index_bottom_bar;
     ImageView auto_scroll;
 
-    //顶部搜索栏（fancy_title）
-    private ImageView iv;
-    private TextView text;
-    private ImageView tick;
-    private ImageView explore_icon;
-    private AnimatedVectorDrawable searchToBar;
-    private AnimatedVectorDrawable barToSearch;
-    private float offset;
-    private Interpolator interp;
-    private int duration;
-    private boolean expanded = false;
+
+    //search_bar 2.0
+    private EditText tv_search;
+    private LinearLayout mSearchLayout;
+    private RelativeLayout smooth_search;
+    private TransitionSet mSet;
+    private boolean expanded;
 
     //webview
     private String home_url = "http://www.baidu.com";
@@ -135,52 +139,16 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         //mainActivity;
         mainActivity = (MainActivity) getActivity();
 
-        //fancy title初始化
-        iv = (ImageView) view.findViewById(R.id.search);
-        text = (TextView) view.findViewById(R.id.text);
-        tick = (ImageView) view.findViewById(R.id.tick);
-        explore_icon = (ImageView) view.findViewById(R.id.explore_icon);
-        searchToBar = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.anim_search_to_bar);
-        barToSearch = (AnimatedVectorDrawable) getResources().getDrawable(R.drawable.anim_bar_to_search);
-        interp = AnimationUtils.loadInterpolator(getContext(), android.R.interpolator.linear_out_slow_in);
-        duration = getResources().getInteger(R.integer.duration_bar);
 
-        //右移参数设置
-        offset = -275f * (int) getResources().getDisplayMetrics().scaledDensity;
-        iv.setTranslationX(offset);
-        text.setTranslationX(offset);
-        explore_icon.setTranslationX(offset);
-        tick.setTranslationX(offset);
-        //animate();
+        //smooth_search 配置
+        tv_search = (EditText) view.findViewById(R.id.tv_search);
+        mSearchLayout = (LinearLayout) view.findViewById(R.id.ll_search);
+        smooth_search = (RelativeLayout) view.findViewById(R.id.smooth_search);
+        smooth_search.setFocusableInTouchMode(true);
+        smooth_search.requestFocus();
+        smooth_search.setFocusable(true);
 
-        tick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //animate();
-                Toast.makeText(getContext(), "clear!", Toast.LENGTH_SHORT).show();
-                text.setText("");
-            }
-        });
-
-        //explore层覆盖,expanded监听事件切换
-        explore_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (expanded) {
-                    Toast.makeText(getContext(), "explore!", Toast.LENGTH_SHORT).show();
-                    String goUrl = text.getText().toString();
-                    if (goUrl.indexOf("http://") < 0) {
-                        goUrl = "http://" + goUrl;
-                        text.setText(goUrl);
-                    }
-                    index_webView.loadUrl(goUrl);
-                    //anim_shrink();
-                } else {
-                    anim_stretch();
-                }
-            }
-        });
-
+;
 
         //浏览器底部操作栏
         index_bottom_left = (ImageView) view.findViewById(R.id.index_bottom_left);
@@ -188,7 +156,6 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         index_bottom_home = (ImageView) view.findViewById(R.id.index_bottom_home);
         index_bottom_search = (ImageView) view.findViewById(R.id.index_bottom_search);
         index_bottom_bar = (LinearLayout) view.findViewById(R.id.index_bottom_bar);
-        auto_scroll = (ImageView) view.findViewById(R.id.auto_scroll);
 
         //搜索引擎图标及图片src
         Google1 = (ImageView) view.findViewById(R.id.google);
@@ -207,9 +174,8 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 if((mainActivity.navigation).getVisibility()==View.VISIBLE){
                     mainActivity.bottom_bar_disappear();
                 }
-
-                if (expanded) {
-                    anim_shrink();
+                if(expanded){
+                    reduce();
                 }
 
             }
@@ -217,12 +183,12 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
             @Override
             public void onPageTop(int l, int t, int oldl, int oldt) {
                 //滑动到顶部搜索栏展开
-                if (!expanded) {
-                    anim_stretch();
+                if(!expanded){
+                    expand();
                 }
 
-                //bottom_bar_appear动画
-                mainActivity.bottom_bar_appear();
+                    mainActivity.bottom_bar_appear();
+
             }
 
             @Override
@@ -241,38 +207,53 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
         index_bottom_home.setOnClickListener(this);
         index_bottom_search.setOnClickListener(this);
 
-        animate();
     }
 
-    public void animate() {
 
-        if (!expanded) {
-            anim_stretch();
-        } else {
-            anim_shrink();
-        }
-    }
 
     //搜索栏伸展动画
-    public void anim_stretch() {
-        iv.setImageDrawable(searchToBar);
-        searchToBar.start();
-        iv.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-        explore_icon.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-        text.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-        tick.animate().translationX(0f).setDuration(duration).setInterpolator(interp);
-        expanded = !expanded;
-    }
+
 
     //搜索栏收缩动画
-    public void anim_shrink() {
-        iv.setImageDrawable(barToSearch);
-        barToSearch.start();
-        iv.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
-        text.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
-        explore_icon.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
-        tick.animate().translationX(offset).setDuration(duration).setInterpolator(interp);
-        expanded = !expanded;
+
+
+    /**
+     * 导航栏2.0
+     * */
+    private void expand() {
+        //设置伸展状态时的布局
+        tv_search.setText("请输入内容：");
+        RelativeLayout.LayoutParams LayoutParams = (RelativeLayout.LayoutParams) mSearchLayout.getLayoutParams();
+        LayoutParams.width = LayoutParams.MATCH_PARENT;
+        LayoutParams.setMargins(dip2px(10), dip2px(10), dip2px(10), dip2px(10));
+        mSearchLayout.setLayoutParams(LayoutParams);
+        //设置动画
+        beginDelayedTransition(mSearchLayout);
+        expanded = true;
+    }
+
+    private void reduce() {
+        //设置收缩状态时的布局
+        RelativeLayout.LayoutParams LayoutParams = (RelativeLayout.LayoutParams) mSearchLayout.getLayoutParams();
+        LayoutParams.width = dip2px(40);
+        LayoutParams.setMargins(dip2px(10), dip2px(10), dip2px(10), dip2px(10));
+        mSearchLayout.setLayoutParams(LayoutParams);
+        //设置动画
+        beginDelayedTransition(mSearchLayout);
+        expanded = false;
+    }
+
+    void beginDelayedTransition(ViewGroup view) {
+        mSet = new AutoTransition();
+        //设置动画持续时间
+        mSet.setDuration(200);
+        // 开始表演
+        TransitionManager.beginDelayedTransition(view, mSet);
+    }
+
+    private int dip2px(float dpVale) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dpVale * scale + 0.5f);
     }
 
 
@@ -326,10 +307,6 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 showPopFromBottom(view);
                 break;
 
-            case R.id.auto_scroll:
-                bottom_flag=false;
-                mHandler.post(ScrollRunnable);
-                break;
         }
     }
 
@@ -475,7 +452,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                 break;
 
             default :
-                if (expanded) {
+               /* if (expanded) {
                     Toast.makeText(getContext(),"exploring "+str , Toast.LENGTH_SHORT).show();
                     String goUrl = "http://www.baidu.com/s?wd="+str;
                     text.setText(goUrl);
@@ -486,7 +463,7 @@ public class MFragment1 extends Fragment implements View.OnClickListener, View.O
                     String goUrl = "http://www.baidu.com/s?wd="+str;
                     text.setText(goUrl);
                     index_webView.loadUrl(goUrl);
-                }
+                }*/
                 break;
         }
     }

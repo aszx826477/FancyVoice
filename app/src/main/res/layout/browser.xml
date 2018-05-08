@@ -12,6 +12,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
+
         <top.yelbee.www.myapplication.ScrollWebView
             android:id="@+id/index_webView"
             android:layout_width="match_parent"
@@ -21,6 +23,7 @@
         <include layout="@layout/browser_index_bottom_bar" />
     </LinearLayout>
 
-    <include layout="@layout/browser_index_title_bar"/>
+    <include
+        layout="@layout/smooth_slide" />
 
 </RelativeLayout>
