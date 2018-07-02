@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private LinearLayout index_bottom_bar;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
