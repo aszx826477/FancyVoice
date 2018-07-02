@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
