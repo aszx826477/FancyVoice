@@ -6,120 +6,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical"
-        android:padding="15dp">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/edit_notebook"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="22sp" />
-
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:text="@string/edit_time"
-            android:textColor="@color/white" />
-    </LinearLayout>
+    <include layout="@layout/notebook_edit_toolbar"/>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
+        <include layout="@layout/notebook_edit_content"/>
 
-            <TextView
-                android:id="@+id/lag_set1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="@string/edit_title"
-                android:textColor="#000"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/et_title"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.15"
-                android:background="@drawable/edit_text_style"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="start"
-                android:hint="@string/edit_title_hint"
-                android:textColorHint="@color/gray2"
-                android:textSize="16sp"
-                android:clickable="true"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/lag_set2"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="内容编辑(中文)"
-                    android:textColor="#000"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"/>
-
-                <android.support.v7.widget.SwitchCompat
-                    android:id="@+id/lag_sel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-
-            <EditText
-                android:id="@+id/et_content"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/edit_text_style"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="start"
-                android:hint="@string/edit_content_hint"
-                android:textColorHint="@color/gray2"
-                android:textSize="16sp"
-                android:clickable="true"/>
-        </LinearLayout>
-
-        <top.yelbee.www.library.FilterMenuLayout
-            android:id="@+id/filter_menu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:elevation="8dp"
-            app:fm_centerBottom="50dp"
-            app:fm_centerRight="50dp"
-            app:fm_collapsedRadius="24dp"
-            app:fm_expandedRadius="96dp"
-            app:fm_primaryColor="#ff5791aa"
-            app:fm_primaryDarkColor="#ff334862" />
-
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/notebook_speak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            app:backgroundTint="@color/blue2"
+            app:srcCompat="@drawable/action_voice"
+            app:elevation="10dp"
+            app:fabSize="normal" />
     </FrameLayout>
-
-
-
 
 
 

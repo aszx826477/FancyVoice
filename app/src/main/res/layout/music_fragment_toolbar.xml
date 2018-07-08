@@ -1,0 +1,14 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:background="@color/orange2">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="音乐列表"
+        android:textSize="18sp"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textColor="@color/white" />
+</RelativeLayout>

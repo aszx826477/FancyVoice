@@ -1,48 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="title_activity_main">趣声</string>
+    <string name="app_name">趣声</string>
 
-    <string name="app_name">语音助手</string>
+    <!--底部导航栏模块-->
+    <string name="nav_browser">探索</string>
+    <string name="nav_music">听听趣声</string>
+    <string name="nav_me">我</string>
 
-    <!--Browser part string define-->
-    <string name="slide_right_txtUrl_hint">请输入网址</string>
-    <string name="slide_right_cancel">取消</string>
-    <string name="slide_right_go">前往</string>
+    <!--探索浏览器模块-->
+    <string name="url_hint">请输入网址或搜索</string>
+
+    <!--听听趣声模块-->
+    <string name="music_name1">城里的月光</string>
+    <string name="music_intro1">许美静 00:00:29</string>
+    <string name="music_name2">红豆</string>
+    <string name="music_intro2">王力宏 00:01:04</string>
+    <string name="music_name3">青花瓷-吉他</string>
+    <string name="music_intro3">未知歌手 00:00:12</string>
+    <string name="music_name4">青花瓷-清唱</string>
+    <string name="music_intro4">未知歌手 00:00:11</string>
+    <string name="music_name5">唯一</string>
+    <string name="music_intro5">王力宏 00:00:28</string>
+    <string name="music_name6">英语讲座</string>
+    <string name="music_intro6">未知歌手 00:00:42</string>
+    <string name="music_name7">Acapella滤波样本</string>
+    <string name="music_intro7">未知歌手 00:00:12</string>
 
 
-    <!--Notebook part string Define-->
-    <string name="edit_notebook">编辑备忘录</string>
+
+    <!--我的模块-->
+    <string name="me_toolbar">趣声</string>
+    <string name="me_find">发现</string>
+    <string name="me_notebook">语音备忘录</string>
+    <string name="me_game">语音小游戏</string>
+    <string name="me_about">关于</string>
+
+    <!--语音备忘录模块-->
+    <string name="edit_notebook">编辑</string>
     <string name="edit_time">编辑时间</string>
     <string name="edit_title">标题</string>
     <string name="edit_title_hint">此处备忘录标题</string>
     <string name="edit_content">内容编辑</string>
     <string name="edit_content_hint">此处备忘录事件</string>
 
-
-    <!--Game part string define-->
-    <string name="game_name">我有一个秘密，猜猜我是谁</string>
-    <string name="game_main_title">Bob got secrets</string>
+    <!--游戏模块-->
+    <string name="game_toolbar">游戏</string>
+    <string name="game_name">我有一个秘密，猜猜我是谁 ?</string>
+    <string name="game_main_title">波比的秘密</string>
     <string name="game_main_introduction">这是一款语音猜谜的游戏，游戏中您将会获得一句提示，然后需要说出“华为华为+你的答案”来通关。现在请说出“华为华为+开始”来启动游戏</string>
-    <string name="game_sherlock">研究世界奇案是我的他的最爱（打一人名）</string>
+    <string name="game_sherlock">我和我的同伴喜欢探索世界奇案（打一人名）</string>
     <string name="game_sponge_bob">我很喜欢被人捏（打一卡通人物）</string>
+    <string name="game_celebration_title">恭喜你通关啦！</string>
+    <string name="game_celebration_content">请使用“华为华为+停顿+结束”口令退出游戏世界</string>
 
-    <!--MainActivity part string define-->
-    <string name="title_activity_main">趣声</string>
-    <string name="title_browser">语音浏览器</string>
-    <string name="title_game">小游戏</string>
-    <string name="title_notebook">语音备忘录</string>
-    <string name="title_about">我</string>
 
-    <!--Me part string define-->
-    <string name="game_entrance">语音小游戏</string>
-    <string name="about_software">关于趣声</string>
-    <string name="exit_software">退出软件</string>
+    <!--关于软件-->
+    <string name="about_toolbar">关于软件</string>
     <string name="copyright">Copyright Version 1.0 © 2018 - 2019\nFancyVoice.All Rights Reserved.</string>
 
-    <!--animator_browser part String Define-->
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="path_search">
-       M141,17 A9,9 0 1,1 142,16 L149,23
-    </string>
 </resources>

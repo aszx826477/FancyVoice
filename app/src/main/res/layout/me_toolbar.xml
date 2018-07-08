@@ -1,0 +1,17 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:orientation="vertical"
+    android:background="@color/orange2">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/me_toolbar"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        />
+</RelativeLayout>

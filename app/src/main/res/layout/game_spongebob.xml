@@ -2,25 +2,28 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" 
+    android:layout_height="match_parent"
     android:id="@+id/spongeview"
-    android:background="@mipmap/back">
-    
-     <ImageView 
-        android:id="@+id/spongebob" 
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:src="@mipmap/spongebob" />
-     
-     <TextView 
+    android:background="@mipmap/game_back">
+
+     <include layout="@layout/game_toolbar"/>
+
+     <ImageView
+         android:id="@+id/spongebob"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentStart="true"
+         android:layout_centerVertical="true"
+         android:src="@mipmap/game_spongebob" />
+
+     <TextView
          android:id="@+id/spongetip"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
-         android:layout_alignParentBottom="true"
+         android:layout_below="@+id/spongebob"
          android:textAlignment="center"
          android:textSize="20sp"
          android:padding="10dp"
          android:text="@string/game_sponge_bob" />"
-    
 
 </RelativeLayout>

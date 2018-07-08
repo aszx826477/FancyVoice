@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#00000000">
+
+
+    <ProgressBar
+        android:id="@+id/loading_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="176dp"
+        android:background="#00000000"
+        android:indeterminateTint="#ff001e"
+        android:indeterminateTintMode="src_atop" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loading_spinner"
+        android:layout_centerHorizontal="true"
+        android:background="#00000000"
+        android:gravity="center"
+        android:text="Recognizing lyrics..."
+        android:textColor="#ffffff" />
+
+
+
+</RelativeLayout>

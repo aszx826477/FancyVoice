@@ -2,15 +2,23 @@
 <LinearLayout
     android:id="@+id/index_bottom_bar"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="47dp"
-    android:background="@color/white"
-    android:alpha = "0.5">
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/index_bottom_hide"
+        android:src="@drawable/browser_hide"
+        android:layout_width="30dp"
+        android:layout_height="47dp"
+        android:padding="10dp"
+        android:layout_weight="1"
+        />
+
 
     <ImageView
         android:id="@+id/index_bottom_left"
-        app:srcCompat="@drawable/browser_left"
+        android:src="@drawable/browser_left"
         android:layout_width="30dp"
         android:layout_height="47dp"
         android:padding="5dp"
@@ -19,7 +27,7 @@
 
     <ImageView
         android:id="@+id/index_bottom_right"
-        app:srcCompat="@drawable/browser_right"
+        android:src="@drawable/browser_right"
         android:layout_width="30dp"
         android:layout_height="47dp"
         android:padding="5dp"
@@ -28,7 +36,7 @@
 
     <ImageView
         android:id="@+id/index_bottom_home"
-        app:srcCompat="@drawable/browser_home"
+        android:src="@drawable/browser_home"
         android:layout_width="30dp"
         android:layout_height="47dp"
         android:padding="10dp"
@@ -36,7 +44,7 @@
         />
     <ImageView
         android:id="@+id/index_bottom_search"
-        app:srcCompat="@drawable/browser_search"
+        android:src="@drawable/browser_search"
         android:layout_width="30dp"
         android:layout_height="47dp"
         android:padding="10dp"

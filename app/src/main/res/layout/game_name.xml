@@ -4,20 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:id="@+id/round_name"
-    android:background="@mipmap/back">
+    android:background="@mipmap/game_back">
+
+    <include layout="@layout/game_toolbar"/>
     
      <ImageView 
         android:id="@+id/ming" 
         android:layout_height="match_parent"
         android:layout_width="wrap_content"
         android:layout_weight="1" 
-        android:src="@mipmap/ming" />
+        android:src="@mipmap/game_ming" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:padding="16dp"
         android:gravity="center"
         android:text="@string/game_name"
         android:textSize="30sp" />"

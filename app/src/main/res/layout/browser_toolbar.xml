@@ -1,0 +1,39 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:orientation="vertical"
+    android:background="@color/orange2">
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/browser_url"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/url_hint"
+        android:textSize="18sp"
+
+        app:met_baseColor="#33ffffff"
+        app:met_primaryColor="#ffffff"
+        app:met_clearButton="true"/>
+    <ImageView
+        android:id="@+id/notebook_edit_quit"
+        android:layout_alignParentStart="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:padding="8dp"
+        android:src="@drawable/browser_action_net"/>
+
+    <ImageView
+        android:id="@+id/browser_search"
+        android:layout_alignParentEnd="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:padding="12dp"
+        android:src="@drawable/browser_go"/>
+</RelativeLayout>

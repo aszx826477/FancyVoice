@@ -4,17 +4,17 @@
     <item
         android:id="@+id/navigation_browser"
         android:icon="@drawable/nav_browser"
-        android:title="@string/title_browser" />
+        android:title="@string/nav_browser" />
 
     <item
         android:id="@+id/navigation_notebook"
-        android:icon="@drawable/nav_notebook"
-        android:title="@string/title_notebook" />
+        android:icon="@drawable/nav_music"
+        android:title="@string/nav_music" />
 
     <item
         android:id="@+id/navigation_about"
         android:icon="@drawable/nav_me"
-        android:title="@string/title_about" />
+        android:title="@string/nav_me" />
 
 
 </menu>

@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/game_back"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical"
+    tools:context="top.yelbee.www.myapplication.Game" >
+
+    <include layout="@layout/game_toolbar"/>
+
+    <ImageView
+        android:id="@+id/cele"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:src="@mipmap/game_cele" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/cele_tip1"
+            android:layout_width="357dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="@string/game_celebration_title"
+            android:textSize="45sp" />
+
+        <TextView
+            android:id="@+id/cele_tip2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="@string/game_celebration_content"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

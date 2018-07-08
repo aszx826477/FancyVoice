@@ -25,7 +25,7 @@ public class popup_engine extends PopupWindow {
         //Activit以外场景获取布局加载器的方式
         this.mContext = mContext;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.view = inflater.inflate(R.layout.engine_select, null);
+        this.view = inflater.inflate(R.layout.browser_engine_select, null);
         google = (ImageView)view.findViewById(R.id.google);
         baidu = (ImageView)view.findViewById(R.id.baidu);
 

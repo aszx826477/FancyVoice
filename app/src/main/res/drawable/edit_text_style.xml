@@ -14,5 +14,5 @@
         android:width="2dp"
         android:color="#E4E4E4" />
     <!--设置圆角矩形-->
-    <corners android:radius="8dp" />
+
 </shape>

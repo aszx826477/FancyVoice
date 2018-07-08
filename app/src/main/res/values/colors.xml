@@ -18,11 +18,14 @@
     <color name="gray2">#808080</color>
     <color name="orange">#ff8c6a</color>
     <color name="orange_50percent">#80ff8c6a</color>
+    <color name="orange2">#F39800</color>
     <color name="white">#ffffff</color>
     <color name="white_50percent">#80ffffff</color>
     <color name="black">#000000</color>
     <color name="blue">#ff14445a</color>
     <color name="blue2">#50c1e9</color>
-    <color name="blue3">#9900FF</color>
+    <color name="blue3">#87CEFA</color>
+    <color name="blue4">#9900FF</color>
+    <color name="blue5">#00539F</color>
     <color name="red">#FF0033</color>
 </resources>

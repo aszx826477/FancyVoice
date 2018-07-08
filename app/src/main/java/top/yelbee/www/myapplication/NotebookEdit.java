@@ -3,13 +3,19 @@ package top.yelbee.www.myapplication;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,13 +34,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import hugo.weaving.DebugLog;
-import top.yelbee.www.library.FilterMenu;
-import top.yelbee.www.library.FilterMenuLayout;
+import top.yelbee.www.myapplication.Datebase.NotebookDB;
 
 import com.iflytek.cloud.SpeechRecognizer;
 
-public class NotebookEdit extends Activity implements CompoundButton.OnCheckedChangeListener {
+public class NotebookEdit extends Activity implements CompoundButton.OnCheckedChangeListener,View.OnClickListener {
+    private FloatingActionButton fbutton;
+    private ImageView exit_case;
+    private ImageView save_case;
+
     private TextView tv_date;
     private EditText et_title;
     private TextView title;
@@ -66,102 +74,14 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        set_statusbar_visible();
         setContentView(R.layout.notebook_edit);
 
-        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a881329");
-        mIat = SpeechRecognizer.createRecognizer(this, mInitListener);//语音对象实例化
-        //语言选择控件
-        lag_sel = (SwitchCompat) findViewById(R.id.lag_sel);
-        lag_set1 = (TextView)findViewById(R.id.lag_set1);
-        lag_set2 = (TextView)findViewById(R.id.lag_set2);
-        lag_sel.setOnCheckedChangeListener(this);
-
-        title = (TextView)findViewById(R.id.title);
-        et_title = (EditText)findViewById(R.id.et_title);
-        FilterMenuLayout layout = (FilterMenuLayout) findViewById(R.id.filter_menu);
-        attachMenu(layout);
         InitView();
 
     }
 
-    private FilterMenu attachMenu(FilterMenuLayout layout){
-        return new FilterMenu.Builder(this)
-                .addItem(R.mipmap.ic_action_back)
-                .addItem(R.mipmap.ic_action_save)
-                .addItem(R.mipmap.ic_action_voice)
-                .attach(layout)
-                .withListener(listener)
-                .build();
-    }
 
-    FilterMenu.OnMenuChangeListener listener = new FilterMenu.OnMenuChangeListener() {
-        @DebugLog
-        @Override
-        public void onMenuItemClick(View view, int position) {
-            switch (position) {
-                case 0:
-                    finish();
-                    break;
-                case 1:
-                    SQLiteDatabase db = DBHelper.getReadableDatabase();
-
-                    //获取edit_title内容
-                    String title = et_title.getText().toString().trim();
-                    // 获取edit_text内容
-                    String content = et_content.getText().toString();
-
-                    // 添加一个新的日志
-                    if (enter_state == 0) {
-                        if (!content.equals("")) {
-                            //向数据库添加信息
-                            ContentValues values = new ContentValues();
-                            values.put("title", title);
-                            values.put("content", content);
-                            values.put("date", dateString);
-                            db.insert("note", null, values);
-                            finish();
-                        } else {
-                            Toast.makeText(NotebookEdit.this, "请输入你的内容！", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    // 查看并修改一个已有的日志
-                    else {
-                        ContentValues values = new ContentValues();
-                        values.put("title", title);
-                        values.put("content", content);
-                        values.put("date", dateString);
-                        db.update("note", values, "title = ?", new String[]{last_content1});
-                        finish();
-                    }
-                    break;
-                case 2:
-
-                    // 设置参数
-                    setParam();
-                    ret = mIat.startListening(mRecognizerListener);
-                    if (ret != ErrorCode.SUCCESS) {
-                        Toast.makeText(getApplicationContext(),"error"+ret,Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(),"start: "+ret,Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-
-            }
-        }
-
-        @Override
-        public void onMenuCollapse() {
-
-        }
-
-        @Override
-        public void onMenuExpand() {
-
-        }
-
-
-
-    };
     private InitListener mInitListener = new InitListener() {
 
         @Override
@@ -174,6 +94,18 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
     };
 
     private void InitView() {
+        SpeechUtility.createUtility(this, SpeechConstant.APPID + "=5a881329");
+        mIat = SpeechRecognizer.createRecognizer(this, mInitListener);//语音对象实例化
+
+        //语言选择控件
+        lag_sel = (SwitchCompat) findViewById(R.id.lag_sel);
+        lag_sel.setOnCheckedChangeListener(this);
+        lag_set1 = (TextView)findViewById(R.id.lag_set1);
+        lag_set2 = (TextView)findViewById(R.id.lag_set2);
+
+        title = (TextView)findViewById(R.id.title);
+        et_title = (EditText)findViewById(R.id.et_title);
+
         tv_date = (TextView) findViewById(R.id.tv_date);
         et_content = (EditText) findViewById(R.id.et_content);
         et_title = (EditText) findViewById(R.id.et_title);
@@ -195,8 +127,68 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
         et_title.setText(last_content1);
         et_content.setText(last_content2);
 
+        //语音按钮和保存
+        exit_case = (ImageView) findViewById(R.id.notebook_edit_quit);
+        fbutton = (FloatingActionButton) findViewById(R.id.notebook_speak);
+        save_case = (ImageView) findViewById(R.id.notebook_save);
+
+        fbutton.setOnClickListener(this);
+        exit_case.setOnClickListener(this);
+        save_case.setOnClickListener(this);
 
     }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.notebook_edit_quit:
+                finish();
+                break;
+            case R.id.notebook_speak:
+                // 设置参数
+                setParam();
+                ret = mIat.startListening(mRecognizerListener);
+                if (ret != ErrorCode.SUCCESS) {
+                    Toast.makeText(getApplicationContext(),"error"+ret,Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(),"start: "+ret,Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.notebook_save:
+                SQLiteDatabase db = DBHelper.getReadableDatabase();
+
+                //获取edit_title内容
+                String title = et_title.getText().toString().trim();
+                // 获取edit_text内容
+                String content = et_content.getText().toString();
+
+                // 添加一个新的日志
+                if (enter_state == 0) {
+                    if (!content.equals("")) {
+                        //向数据库添加信息
+                        ContentValues values = new ContentValues();
+                        values.put("title", title);
+                        values.put("content", content);
+                        values.put("date", dateString);
+                        db.insert("note", null, values);
+                        finish();
+                    } else {
+                        Toast.makeText(NotebookEdit.this, "请输入你的内容！", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                // 查看并修改一个已有的日志
+                else {
+                    ContentValues values = new ContentValues();
+                    values.put("title", title);
+                    values.put("content", content);
+                    values.put("date", dateString);
+                    db.update("note", values, "title = ?", new String[]{last_content1});
+                    finish();
+                }
+                break;
+        }
+    }
+
     /*
     语音听写参数设置
     */
@@ -234,6 +226,7 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
 
 
     }
+
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if (lag_sel.isChecked()) {
@@ -316,5 +309,18 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
         }
 
         return stringBuilder.toString();
+    }
+
+    //让系统状态栏成半透明状态，沉浸式设计
+    public void set_statusbar_visible() {
+        this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = this.getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);//设置状态栏颜色透明
+            //window.setNavigationBarColor(Color.TRANSPARENT);//设置导航栏颜色透明
+        }
     }
 }

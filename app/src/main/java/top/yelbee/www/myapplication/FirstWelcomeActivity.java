@@ -14,6 +14,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import top.yelbee.www.myapplication.View.CustomVideoView;
+
 /**
  * 初次安装软件时的引导界面
  */
@@ -26,7 +28,7 @@ public class FirstWelcomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         set_statusbar_visible();
-        setContentView(R.layout.activity_welcome_first);
+        setContentView(R.layout.welcome_first);
 
         clickin = (TextView) findViewById(R.id.clickin);
         clickin.setOnClickListener(new View.OnClickListener() {
