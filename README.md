@@ -33,7 +33,7 @@ You can use *Voice Conmmand* to control the browser if you are indolent. Or this
 </div>
 
 ### 2.2 Lyric-recognition Music Player
-This is a tool not only play music but also recognize the song lyric and directly extract them from the audio.
+This is a tool that not only plays music but also recognises the song lyric and directly extract them from the audio.
 <div align=center>
     <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/music_player1.jpg"/>
     <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/music_player2.jpg"/>
