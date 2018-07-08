@@ -1,5 +1,5 @@
 # FancyVoice
-FancyVoice(Chinese Name:趣声) is an Android Application using voice-recognize technology from iFLY(website:http://www.xfyun.cn/). It has three mainly kinds of modules, Speech-Control Browser, Speech-Control Notebook and Game Centre based on voice-recognize. With BottomNavigationView on the bottom of layout companied by Viewpager, following **Material Design** rules, you must find yourself immerse in exploring this application for great pleasure as well as for its colorful, creative design.
+FancyVoice(Chinese Name:趣声) is an Android Application using voice-recognize technology from iFLY(website:http://www.xfyun.cn/). It has four mainly kinds of modules, *Speech-Control Browser, Lyric-recognition Music Player, Speech-Control Notebook and Game Centre based on voice-recognize*. With BottomNavigationView on the bottom of layout companied by Viewpager, following **Material Design** rules, you must find yourself immerse in exploring this application for great pleasure as well as for its colorful, creative design.
 
 <div align=center>
     <img width="250" height="180" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/logo.png"/>
