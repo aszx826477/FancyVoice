@@ -1,6 +1,9 @@
 # FancyVoice
 FancyVoice(Chinese Name:趣声) is an Android Application using voice-recognize technology from iFLY(website:http://www.xfyun.cn/). It has three mainly kinds of modules, Speech-Control Browser, Speech-Control Notebook and Game Centre based on voice-recognize. With BottomNavigationView on the bottom of layout companied by Viewpager, following **Material Design** rules, you must find yourself immerse in exploring this application for great pleasure as well as for its colorful, creative design.
-<div align=center><img width="250" height="180" src="http://opm54c01s.bkt.clouddn.com/18-3-16/3554926.jpg"/></div>
+
+<div align=center>
+    <img width="250" height="180" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/logo.jpg"/>
+</div>
 
 ## 1 Environment
 * Language: Chinese
@@ -23,7 +26,7 @@ dependencies {
 
 ## 2 Function
 ### 2.1 Speech-Control Browser
-You can use *Voice Conmmand* to control the browser if you are indolent. Or this is a kind of function for disabled individuals who cannot use there arms.
+You can use *Voice Conmmand* to control the browser if you are indolent. Or this is a kind of function for disabled individuals who cannot use their arms.
 <div align=center>
     <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/browser1.jpg"/>
     <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/browser2.jpg"/>
