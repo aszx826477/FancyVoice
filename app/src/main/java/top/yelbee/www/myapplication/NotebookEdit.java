@@ -37,6 +37,7 @@ import java.util.LinkedHashMap;
 import top.yelbee.www.myapplication.Datebase.NotebookDB;
 
 import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.VoiceWakeuper;
 
 public class NotebookEdit extends Activity implements CompoundButton.OnCheckedChangeListener,View.OnClickListener {
     private FloatingActionButton fbutton;
@@ -74,9 +75,9 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        VoiceWakeuper.getWakeuper().destroy();      //onDestroy mIvw
         set_statusbar_visible();
         setContentView(R.layout.notebook_edit);
-
         InitView();
 
     }
@@ -256,6 +257,7 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
         @Override
         public void onError(SpeechError error) {
             Toast.makeText(getApplicationContext(),error.getErrorCode(),Toast.LENGTH_SHORT);
+            Log.e("111",String.valueOf(error.getErrorCode()));
         }
 
         @Override
