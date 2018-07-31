@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="0dip">
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:id="@+id/numberInputLayout">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Enter recipient name"
+                android:textAllCaps="true"
+                android:id="@+id/textView"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"/>
+
+        <EditText
+                android:id="@+id/callName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="32sp"
+                android:padding="10dp"
+                android:inputType="textNoSuggestions">
+
+            <requestFocus/>
+        </EditText>
+
+    </LinearLayout>
+
+
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_above="@+id/numberInputLayout"
+            android:paddingBottom="24dp" android:layout_centerHorizontal="true">
+        <TextView
+                android:id="@+id/infoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logged in as: "
+                android:textAllCaps="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                />
+
+        <TextView
+                android:id="@+id/loggedInName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Someone"
+                android:textAllCaps="true"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"/>
+    </LinearLayout>
+
+
+    <RelativeLayout android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentBottom="true"
+                  android:layout_centerHorizontal="true">
+
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/callButton"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/call_on"
+                app:fabSize="normal"
+                app:backgroundTint="#00ff00"
+                app:rippleColor="#ffffff"
+                android:layout_centerHorizontal="true"/>
+
+        <Button
+                android:id="@+id/stopButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/callButton"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/transparent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/sinch_purple"
+                android:textAllCaps="true"
+                android:text="Stop service" android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

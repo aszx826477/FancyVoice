@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:weightSum="5"
+    android:background="#ffffffff">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:background="#fffafafa"
+            >
+
+        <TextView
+                android:id="@+id/remoteUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="14dp"
+                android:text="Sample user"
+                android:textSize="28sp"
+            android:textStyle="bold"/>
+
+        <TextView
+                android:id="@+id/callState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Incoming call"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                />
+
+    </LinearLayout>
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/me_action_skype"
+            android:padding="0dip"
+            android:layout_weight="3"
+            android:contentDescription="Call background">
+
+    </ImageView>
+
+    <RelativeLayout
+            android:id="@+id/bottomPanel"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/greyish"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/answerButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/call_on"
+                    app:fabSize="normal"
+                    app:backgroundTint="#00ff00"
+                    app:rippleColor="#ffffff"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/declineButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/answerButton"
+            android:layout_marginStart="74dp"
+            android:layout_toEndOf="@+id/answerButton"
+            android:src="@drawable/call_end"
+            app:backgroundTint="#ff0000"
+            app:fabSize="normal"
+            app:rippleColor="#ffffff" />
+
+    </RelativeLayout>
+
+</LinearLayout>

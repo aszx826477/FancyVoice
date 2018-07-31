@@ -10,9 +10,11 @@
         android:textSize="15dp"
         android:padding="8dp"/>
 
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <LinearLayout
             android:id="@+id/start_notebook"
             android:layout_width="0dp"
@@ -64,7 +66,31 @@
                 android:text="@string/me_about"
                 android:textAlignment="center"/>
         </LinearLayout>
-
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/start_skypeech"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/me_action_skype" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="skpeech"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

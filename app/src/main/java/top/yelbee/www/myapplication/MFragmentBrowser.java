@@ -83,7 +83,7 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
 
 
     //语音模块变量
-    private VoiceWakeuper mIvw;
+    public VoiceWakeuper mIvw_browser;
     private static final int MAX = 60;
     private static final int MIN = -20;
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
@@ -107,6 +107,12 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
     private int scale_flag = 1;
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        VoiceWakeuper.getWakeuper().destroy();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.browser_fragment, container, false);
         init();
@@ -114,7 +120,7 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
 
         //语音模块注册
         SpeechUtility.createUtility(getContext(),SpeechConstant.APPID + "=5aa9c8f7");  //Ѷ��ע��
-        mIvw = VoiceWakeuper.createWakeuper(getContext(), null);    //(Context arg0, InitListener arg1)
+        mIvw_browser = VoiceWakeuper.createWakeuper(getContext(), null);    //(Context arg0, InitListener arg1)
         start_waker();
         return view;
     }
@@ -292,25 +298,25 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
     //语音模块函数
     private void start_waker() {
         // TODO Auto-generated method stub
-        mIvw=VoiceWakeuper.getWakeuper();
-        if(mIvw!=null) {
+        mIvw_browser=VoiceWakeuper.getWakeuper();
+        if(mIvw_browser!=null) {
             //resultString="";
             //recoString="";
             //ed1.setText(resultString);
 
             final String resPath= ResourceUtil.generateResourcePath(getContext(), ResourceUtil.RESOURCE_TYPE.assets, "5aa9c8f7"+".jet");
 
-            mIvw.setParameter(SpeechConstant.KEEP_ALIVE, "1");
-            mIvw.setParameter(SpeechConstant.PARAMS, null);
-            mIvw.setParameter(SpeechConstant.ENGINE_TYPE, mEngineType);
-            mIvw.setParameter(ResourceUtil.IVW_RES_PATH, resPath);
-            mIvw.setParameter(SpeechConstant.IVW_SST, "oneshot");  //ʶ��ģʽ��one_shot
-            mIvw.setParameter(SpeechConstant.RESULT_TYPE, "json");
-            mIvw.setParameter(SpeechConstant.IVW_THRESHOLD, "0:"+curThresh);
-            mIvw.setParameter(SpeechConstant.IVW_SHOT_WORD, "0");  //��Ϊ��Ϊ
-            mIvw.setParameter(SpeechConstant.ASR_PTT, "0");
-            mIvw.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
-            mIvw.startListening(mWakeupListener);
+            mIvw_browser.setParameter(SpeechConstant.KEEP_ALIVE, "1");
+            mIvw_browser.setParameter(SpeechConstant.PARAMS, null);
+            mIvw_browser.setParameter(SpeechConstant.ENGINE_TYPE, mEngineType);
+            mIvw_browser.setParameter(ResourceUtil.IVW_RES_PATH, resPath);
+            mIvw_browser.setParameter(SpeechConstant.IVW_SST, "oneshot");  //ʶ��ģʽ��one_shot
+            mIvw_browser.setParameter(SpeechConstant.RESULT_TYPE, "json");
+            mIvw_browser.setParameter(SpeechConstant.IVW_THRESHOLD, "0:"+curThresh);
+            mIvw_browser.setParameter(SpeechConstant.IVW_SHOT_WORD, "0");  //��Ϊ��Ϊ
+            mIvw_browser.setParameter(SpeechConstant.ASR_PTT, "0");
+            mIvw_browser.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
+            mIvw_browser.startListening(mWakeupListener);
         }
     }
 

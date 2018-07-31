@@ -20,7 +20,7 @@ public class MFragmentMe extends Fragment implements View.OnClickListener {
     LinearLayout start_notebook;
     LinearLayout start_game;
     LinearLayout start_about;
-
+    LinearLayout start_skypeech;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.me_fragment,container,false);
@@ -32,10 +32,12 @@ public class MFragmentMe extends Fragment implements View.OnClickListener {
         start_notebook = (LinearLayout) view.findViewById(R.id.start_notebook);
         start_game = (LinearLayout) view.findViewById(R.id.start_game);
         start_about = (LinearLayout) view.findViewById(R.id.start_about);
+        start_skypeech = (LinearLayout) view.findViewById(R.id.start_skypeech);
 
         start_notebook.setOnClickListener(this);
         start_game.setOnClickListener(this);
         start_about.setOnClickListener(this);
+        start_skypeech.setOnClickListener(this);
     }
 
     @Override
@@ -45,15 +47,21 @@ public class MFragmentMe extends Fragment implements View.OnClickListener {
 
                 Intent intent1 = new Intent(getActivity(), Notebook.class);
                 startActivity(intent1);
-
                 break;
+
             case R.id.start_game:
                 Intent intent2 = new Intent(getActivity(), Game.class);
                 startActivity(intent2);
                 break;
+
             case R.id.start_about:
                 Intent intent3 = new Intent(getActivity(), AboutSoftware.class);
                 startActivity(intent3);
+                break;
+
+            case R.id.start_skypeech:
+                Intent intent4 = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent4);
                 break;
 
         }

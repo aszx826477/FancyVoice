@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -19,10 +20,18 @@
         android:label="趣声"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <service android:name=".SinchService"></service>
         <activity android:name=".FirstWelcomeActivity"></activity>
         <activity android:name=".Notebook" />
         <activity android:name=".NotebookEdit" />
         <activity android:name=".Game" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".CallScreenActivity"/>
+
+        <activity android:name=".IncomingCallScreenActivity" android:screenOrientation="portrait"
+            android:noHistory="true"/>
+
+        <activity android:name=".PlaceCallActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main">
