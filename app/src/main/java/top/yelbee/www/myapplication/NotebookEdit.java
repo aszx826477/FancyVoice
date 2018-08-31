@@ -75,7 +75,11 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VoiceWakeuper.getWakeuper().destroy();      //onDestroy mIvw
+
+        //修复Bug需要判断为非空才能销毁语音唤醒器
+        if(VoiceWakeuper.getWakeuper() != null) {
+            VoiceWakeuper.getWakeuper().destroy();      //onDestroy mIvw
+        }
         set_statusbar_visible();
         setContentView(R.layout.notebook_edit);
         InitView();
@@ -114,7 +118,7 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
 
         //获取此时时刻时间
         Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         dateString = sdf.format(date);
         tv_date.setText(dateString);
 
@@ -256,8 +260,8 @@ public class NotebookEdit extends Activity implements CompoundButton.OnCheckedCh
 
         @Override
         public void onError(SpeechError error) {
-            Toast.makeText(getApplicationContext(),error.getErrorCode(),Toast.LENGTH_SHORT);
-            Log.e("111",String.valueOf(error.getErrorCode()));
+            Toast.makeText(getApplicationContext(),"No hearing anything",Toast.LENGTH_SHORT).show();
+            //Log.e("111",String.valueOf(error.getErrorCode()));
         }
 
         @Override

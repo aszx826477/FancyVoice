@@ -86,7 +86,9 @@ public class Notebook extends Activity implements
             case R.id.notebook_add:
                 Intent intent = new Intent(Notebook.this, NotebookEdit.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("info", "");
+                //bundle.putString("info", "");
+                bundle.putString("info_title", "");
+                bundle.putString("info_content", "");
                 bundle.putInt("enter_state", 0);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -127,22 +129,31 @@ public class Notebook extends Activity implements
     // 点击listview中某一项的点击监听事件
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
         //获取listview中此个item中的内容
         String content = listview.getItemAtPosition(arg2) + "";
-        //获取title
+        //获取title_date
+        /*
         String title = content.substring(content.indexOf("=") + 1,
                 content.indexOf(","));
+                */
+        String title_date = content.substring(content.indexOf("=") + 1,
+                content.indexOf(","));
         //根据title在SQLite中查找content
-        Cursor cursor = DB.query("note", null, null, null, null, null, null);
-        startManagingCursor(cursor);//不知道是不是这么改
+        String selectionArgs[] = {title_date};
+        Cursor cursor = DB.query("note",null, "date=?", selectionArgs, null, null, null);
+
+        startManagingCursor(cursor);
+        //cursor查询结果的一个为空节点，moveToNext得到第一个的值
         while (cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndex("title"));
-            if(name.equals(title)) {
-                String content1 = cursor.getString(cursor.getColumnIndex("content"));
-                Intent myIntent = new Intent(Notebook.this, NotebookEdit.class);//不知道改成什么
+            String date = cursor.getString(cursor.getColumnIndex("date"));
+            if(date.equals(title_date)) {
+                String info_title = cursor.getString(cursor.getColumnIndex("title"));
+                String info_content = cursor.getString(cursor.getColumnIndex("content"));
+                Intent myIntent = new Intent(Notebook.this, NotebookEdit.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("info_title", title);
-                bundle.putString("info_content", content1);
+                bundle.putString("info_title", info_title);
+                bundle.putString("info_content", info_content);
                 bundle.putInt("enter_state", 1);
                 myIntent.putExtras(bundle);
                 startActivity(myIntent);
@@ -165,10 +176,10 @@ public class Notebook extends Activity implements
                 //获取listview中此个item中的内容
                 //删除该行后刷新listview的内容
                 String content = listview.getItemAtPosition(arg2) + "";
-                String title = content.substring(content.indexOf("=") + 1,
+                String title_date = content.substring(content.indexOf("=") + 1,
                         content.indexOf(","));
-
-                DB.delete("note", "title = ?", new String[]{title});
+                String selectionArgs[] = {title_date};
+                DB.delete("note", "date = ?", selectionArgs);
                 RefreshNotesList();
             }
         });

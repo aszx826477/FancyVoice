@@ -24,6 +24,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,19 +51,18 @@ import top.yelbee.www.myapplication.Controller.trait_extrator;
 import top.yelbee.www.myapplication.Controller.UtilsMusic;
 
 public class MusicPlay extends AppCompatActivity {
-    FloatingActionButton play, pause, smart;
-    TextView musicName, musicLength, musicCur;
+
+    String music_name;
+    TextView musicLength, musicCur;
     private SeekBar seekBar;
     MediaPlayer mediaPlayer = new MediaPlayer();                //音乐播放器类
-    AudioManager audioManager;                                  //音频管理类
     Timer timer;                                                //定时器类用于schedule一个Timertask,以此启动一个线程控制进度条和时间tv
     boolean isSeekBarChanging;                                  //互斥变量，防止进度条与定时器冲突。
-    boolean playerpause;                                        //播放暂停标志位
     int currentPosition;                                        //当前音乐播放的进度
     SimpleDateFormat format;                                    //时间格式 00:00
 
     //测试音频文件地址
-    static String tempPath = Environment.getExternalStorageDirectory() + "/Music/a million on my soul.mp3";
+    //static String tempPath = Environment.getExternalStorageDirectory() + "/Music/a million on my soul.mp3";
     AnimatedVectorDrawable s2p;                                 //animated_vector 控制容器变量
     AnimatedVectorDrawable p2s;
     TextView lyrics;                                            //歌词控件tv
@@ -75,10 +75,8 @@ public class MusicPlay extends AppCompatActivity {
     //音频流识别模块
     private static String TAG = "IatDemo";                      //语音听写
     private static com.iflytek.cloud.SpeechRecognizer mIat;     // 语音听写对象
-    private int bit_temp;
     private int freq_temp;
 
-    String music_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +89,6 @@ public class MusicPlay extends AppCompatActivity {
         Bundle bundle = this.getIntent().getExtras();
         music_name = bundle.getString("music_name");
 
-        //bit_temp = trait_extrator.bit_trait(ScrollingActivity.this,"voa_four.wav");
         freq_temp = trait_extrator.frequency_trait(MusicPlay.this, music_name);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -150,7 +147,7 @@ public class MusicPlay extends AppCompatActivity {
                 if (!mediaPlayer.isPlaying()) {
                     mediaPlayer.seekTo(mediaPlayer.getCurrentPosition());
                     mediaPlayer.start();
-                    play.setImageDrawable(play_src);
+                    play.setImageDrawable(pause_src);
 
                     timer = new Timer();
                     timer.schedule(new TimerTask() {
@@ -164,7 +161,7 @@ public class MusicPlay extends AppCompatActivity {
                     }, 0, 50);
                 }else if(mediaPlayer.isPlaying()){
                     mediaPlayer.pause();
-                    play.setImageDrawable(pause_src);
+                    play.setImageDrawable(play_src);
                 }
             }
         });
@@ -450,6 +447,17 @@ public class MusicPlay extends AppCompatActivity {
             window.setStatusBarColor(Color.TRANSPARENT);//设置状态栏颜色透明
             //window.setNavigationBarColor(Color.TRANSPARENT);//设置导航栏颜色透明
         }
+    }
+
+    //重写系统的返回键功能，修复返回不能暂停音乐的Bug
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            mediaPlayer.pause();
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

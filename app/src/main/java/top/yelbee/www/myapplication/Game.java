@@ -105,7 +105,7 @@ public class Game extends Activity {
 
 	private void start_waker() {
 		// TODO Auto-generated method stub
-		mIvw= VoiceWakeuper.getWakeuper();    //�ǿ��жϣ���ֹ��ָ��
+		mIvw = VoiceWakeuper.getWakeuper();
 		if(mIvw!=null) {
 			resultString="";
 			recoString="";
