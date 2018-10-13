@@ -63,12 +63,6 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/lag_sel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="0.2" />
 
     </LinearLayout>
 

@@ -44,7 +44,7 @@
         />
     <ImageView
         android:id="@+id/index_bottom_search"
-        android:src="@drawable/browser_search"
+        android:src="@drawable/browser_voice"
         android:layout_width="30dp"
         android:layout_height="47dp"
         android:padding="10dp"

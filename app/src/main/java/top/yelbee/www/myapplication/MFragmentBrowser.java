@@ -1,6 +1,7 @@
 package top.yelbee.www.myapplication;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -22,6 +23,9 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.huawei.hiai.asr.AsrConstants;
+import com.huawei.hiai.asr.AsrListener;
+import com.huawei.hiai.asr.AsrRecognizer;
 import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
@@ -32,6 +36,10 @@ import com.iflytek.cloud.WakeuperListener;
 import com.iflytek.cloud.WakeuperResult;
 import com.iflytek.cloud.util.ResourceUtil;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -106,6 +114,10 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
     //放大倍数控制变量
     private int scale_flag = 1;
 
+    private static String TAG = "Browser HiAI";
+
+    private AsrRecognizer mAsrRecognizer;
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -118,11 +130,124 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
         init();
         init_web_home();
 
+        /*
         //语音模块注册
         SpeechUtility.createUtility(getContext(),SpeechConstant.APPID + "=5aa9c8f7");  //Ѷ��ע��
         mIvw_browser = VoiceWakeuper.createWakeuper(getContext(), null);    //(Context arg0, InitListener arg1)
-        start_waker();
+        start_waker();*/
+
+        initHiAIEngine();
         return view;
+    }
+
+    /**
+     * 创建监听器
+     */
+    private AsrListener mMyAsrListener = new AsrListener() {
+        @Override
+        public void onInit(Bundle bundle) {
+        }
+
+        @Override
+        public void onBeginningOfSpeech() {
+            // 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
+            Toast.makeText(getActivity(), "speak...", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onRmsChanged(float v) {
+        }
+
+        @Override
+        public void onBufferReceived(byte[] bytes) {
+        }
+
+        @Override
+        public void onEndOfSpeech() {
+            // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
+            Toast.makeText(getActivity(), "end...", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(int i) {
+            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onResults(Bundle results) {
+            String mResult = getOnResult(results, AsrConstants.RESULTS_RECOGNITION);
+            if (mAsrRecognizer != null) {
+                mAsrRecognizer.stopListening();
+            }
+            //根据语音识别的结果进行相应的操作
+            matching(mResult);
+        }
+
+        @Override
+        public void onPartialResults(Bundle bundle) {
+        }
+
+        @Override
+        public void onEnd() {
+        }
+
+        @Override
+        public void onEvent(int i, Bundle bundle) {
+        }
+    };
+    private String getOnResult(Bundle partialResults, String key) {
+
+        String json = partialResults.getString(key);
+        final StringBuilder sb = new StringBuilder();
+        try {
+            JSONObject result = new JSONObject(json);
+            JSONArray items = result.getJSONArray("result");
+            for (int i = 0; i < items.length(); i++) {
+                String word = items.getJSONObject(i).getString("word");
+                sb.append(word);
+
+            }
+
+        } catch (JSONException exp) {
+
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 初始化HiAI Engine
+     */
+    void initHiAIEngine() {
+        Log.d(TAG, "initEngine() ");
+        mAsrRecognizer = AsrRecognizer.createAsrRecognizer(getActivity());
+        /** 初始化引擎*/
+        Intent initIntent = new Intent();
+        initIntent.putExtra(AsrConstants.ASR_AUDIO_SRC_TYPE, AsrConstants.ASR_SRC_TYPE_RECORD);
+        mAsrRecognizer.init(initIntent, mMyAsrListener);
+        // mAsrRecognizer.destroy();
+        Log.d(TAG, "initHiAIEngine_finish");
+
+
+    }
+
+    /**
+     * 启动HiAI Engine进行语音识别
+     */
+    void startHiAIEngine() {
+        /** 设置引擎参数开始识别 */
+        /** 用户可以不设置参数,使用默认参数*/
+        Intent paramIntent = new Intent();
+        /** 设置前端静音检测时间*/
+        paramIntent.putExtra(AsrConstants.ASR_VAD_FRONT_WAIT_MS, 4000);
+        /** 设置后端静音检测时间*/
+        paramIntent.putExtra(AsrConstants.ASR_VAD_END_WAIT_MS, 1000);
+        /** 设置超时时间*/
+        //paramIntent.putExtra(AsrConstants.ASR_TIMEOUT_THRESHOLD_MS, 20000);
+        if (mAsrRecognizer != null) {
+            mAsrRecognizer.startListening(paramIntent);
+        }
+
     }
 
 
@@ -289,12 +414,14 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.index_bottom_search:
-                showPopFromBottom(view);
+                //showPopFromBottom(view);
+                startHiAIEngine();
                 break;
 
         }
     }
 
+    /*
     //语音模块函数
     private void start_waker() {
         // TODO Auto-generated method stub
@@ -368,49 +495,53 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
             // TODO Auto-generated method stub
             Toast.makeText(getContext(), "u r welcome to begin", Toast.LENGTH_SHORT).show();
         }
-    };
-/**
-* 致谢JDK 8，语音指令：
-*/
-public void matching(String str){
-    switch (str){
-        case "前进":
-            index_webView.goForward();
-            break;
+    };*/
 
-        case "后退":
-            index_webView.goBack();
-            break;
+    /**
+    * 致谢JDK 8，语音指令：
+    */
+    public void matching(String str){
+        String strip_str = str.substring(0,str.length()-2);
+        switch (strip_str){
+            case "前进":
+               index_webView.goForward();
+               break;
 
-        case "阅读":
-            alert("阅读模式");
-            bottom_flag=false;
-            mHandler.post(ScrollRunnable);
-            break;
+            case "后退":
+                index_webView.goBack();
+                break;
 
-        case "引擎":
-            alert("引擎选择");
-            showPopFromBottom(view);
-            break;
+            case "阅读":
+                alert("阅读模式");
+                bottom_flag=false;
+                mHandler.post(ScrollRunnable);
+                break;
 
-        case "放大":
-            alert("放大");
-            scale_flag++;
-            index_webView.setInitialScale(scale_flag*100);
-            break;
+            case "引擎":
+                alert("引擎选择");
+                showPopFromBottom(view);
+                break;
 
-        case "缩小":
-            alert("缩小");
-            scale_flag--;
-            index_webView.setInitialScale(scale_flag*100);
-            break;
+            case "放大":
+                alert("放大");
+                scale_flag++;
+                index_webView.setInitialScale(scale_flag*100);
+                index_webView.goBack();
+                break;
 
-        default :
-            index_webView.loadUrl("http://www.baidu.com/s?wd="+str);
-            break;
+            case "缩小":
+                alert("缩小");
+                scale_flag--;
+                index_webView.setInitialScale(scale_flag*100);
+                index_webView.goBack();
+                break;
+
+            default :
+                index_webView.loadUrl("http://www.baidu.com/s?wd="+str);
+                break;
+        }
     }
-}
-
+/*
     private String parseData(String resultString) {
         Gson gson = new Gson();
         bean xfBean = gson.fromJson(resultString, bean.class);
@@ -421,7 +552,7 @@ public void matching(String str){
             stringBuilder.append(text);
         }
         return stringBuilder.toString();
-    }
+    }*/
 
     //PopupWindow设置
     public void showPopFromBottom(View view) {
