@@ -37,10 +37,7 @@ dependencies {
 ## 2 功能
 ### 2.1 语音浏览器
 
-<div align=center>
-    <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/browser1.jpg"/>
-    <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/browser2.jpg"/>
-</div>
+
 
 ### 2.2 歌词识别器
 <div align=center>
