@@ -2,8 +2,10 @@ package top.yelbee.www.myapplication;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -82,7 +84,7 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
 
 
     //webview
-    private String home_url = "http://www.baidu.com";
+    private String home_url = "http://www.hao123.com";
     ScrollWebView index_webView;
     WebViewClient homeWebViewClient;
     WebChromeClient homeWebChromeClient;
@@ -104,6 +106,9 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
     private Drawable baidu_draw;
     private Drawable Google_draw;
 
+    //开始的导航弹出窗
+    private  popup_instruction instruction_show;
+
 
     //语音指令句柄
     private Handler mHandler = new Handler();
@@ -114,9 +119,18 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
     //放大倍数控制变量
     private int scale_flag = 1;
 
+    //调试的TAP
     private static String TAG = "Browser HiAI";
 
+    //华为HiAI Engine对象
     private AsrRecognizer mAsrRecognizer;
+
+    //计数器判断是否进行导航弹窗提示
+    public static SharedPreferences popup_instruction_count;
+
+    public static AsrRecognizer asr_instance;
+
+
 
     @Override
     public void onDestroy() {
@@ -124,25 +138,49 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
         VoiceWakeuper.getWakeuper().destroy();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.browser_fragment, container, false);
+
         init();
         init_web_home();
 
-        /*
+
         //语音模块注册
         SpeechUtility.createUtility(getContext(),SpeechConstant.APPID + "=5aa9c8f7");  //Ѷ��ע��
-        mIvw_browser = VoiceWakeuper.createWakeuper(getContext(), null);    //(Context arg0, InitListener arg1)
-        start_waker();*/
+        //mIvw_browser = VoiceWakeuper.createWakeuper(getContext(), null);    //(Context arg0, InitListener arg1)
+        //start_waker();
 
         initHiAIEngine();
+
+        shared_preference_popup_instruction();
         return view;
+    }
+
+
+
+
+    public void shared_preference_popup_instruction() {
+        popup_instruction_count = getActivity().getSharedPreferences("instruction",0);
+        int count = popup_instruction_count.getInt("instruction", 0);
+
+
+        //判断浏览器是否是第一次打开，如果是，则弹出语音使用的导航
+        if (count == 0) {
+            showPopInstruction(view);
+        }
+        SharedPreferences.Editor editor = popup_instruction_count.edit();
+        //存入数据
+        editor.putInt("instruction", ++count);
+        //提交修改
+        editor.commit();
     }
 
     /**
      * 创建监听器
      */
+
     private AsrListener mMyAsrListener = new AsrListener() {
         @Override
         public void onInit(Bundle bundle) {
@@ -170,7 +208,7 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
 
         @Override
         public void onError(int i) {
-            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "error code = " + i, Toast.LENGTH_SHORT).show();
 
         }
 
@@ -218,15 +256,23 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
     /**
      * 初始化HiAI Engine
      */
+
     void initHiAIEngine() {
         Log.d(TAG, "initEngine() ");
         mAsrRecognizer = AsrRecognizer.createAsrRecognizer(getActivity());
-        /** 初始化引擎*/
+        Log.d(TAG,"AsrRecognizer.createAsrRecognizer777777777777777777777777777");
+        // 初始化引擎
         Intent initIntent = new Intent();
         initIntent.putExtra(AsrConstants.ASR_AUDIO_SRC_TYPE, AsrConstants.ASR_SRC_TYPE_RECORD);
-        mAsrRecognizer.init(initIntent, mMyAsrListener);
-        // mAsrRecognizer.destroy();
+        Log.d(TAG,"putExtra777777777777777777777777777");
+        if (mAsrRecognizer != null) {
+            mAsrRecognizer.init(initIntent, mMyAsrListener);
+            Log.d(TAG,"mAsrRecognizer.init777777777777777777777777777");
+        }
+        // 注意要记得mAsrRecognizer.destroy();
         Log.d(TAG, "initHiAIEngine_finish");
+
+        asr_instance = mAsrRecognizer;
 
 
     }
@@ -234,15 +280,16 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
     /**
      * 启动HiAI Engine进行语音识别
      */
+
     void startHiAIEngine() {
-        /** 设置引擎参数开始识别 */
-        /** 用户可以不设置参数,使用默认参数*/
+        //设置引擎参数开始识别
+        //用户可以不设置参数,使用默认参数
         Intent paramIntent = new Intent();
-        /** 设置前端静音检测时间*/
+        //设置前端静音检测时间
         paramIntent.putExtra(AsrConstants.ASR_VAD_FRONT_WAIT_MS, 4000);
-        /** 设置后端静音检测时间*/
+        //设置后端静音检测时间
         paramIntent.putExtra(AsrConstants.ASR_VAD_END_WAIT_MS, 1000);
-        /** 设置超时时间*/
+        //设置超时时间
         //paramIntent.putExtra(AsrConstants.ASR_TIMEOUT_THRESHOLD_MS, 20000);
         if (mAsrRecognizer != null) {
             mAsrRecognizer.startListening(paramIntent);
@@ -252,6 +299,7 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
 
 
     public void init() {
+
         //mainActivity;
         mainActivity = (MainActivity) getActivity();
 
@@ -331,17 +379,65 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
 
     public void init_web_home() {
         WebSettings webSettings = index_webView.getSettings();
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setAllowFileAccess(true);
         webSettings.setSupportZoom(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);    //隐藏缩放控制
+        webSettings.setAppCacheEnabled(true);
+        webSettings.setDomStorageEnabled(true);
 
         homeWebViewClient = new WebViewClient() {
 
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
             }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+           /*
+                try{
+                    if(url.startsWith("baidumap://")                //百度地图
+                            || url.startsWith("baiduboxapp://")     //百度盒子
+                            || url.startsWith("weixin://")          //微信
+                            || url.startsWith("alipays://")         //支付宝
+                            || url.startsWith("mailto://")          //邮件
+                            || url.startsWith("tel://")             //电话
+                            || url.startsWith("dianping://")        //大众点评
+
+                            //其他自定义的scheme
+
+                            ){
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+                        return true;
+                    }
+                }catch (Exception e){
+                    return true;
+                }
+                view.loadUrl(url);
+                return true;*/
+
+                // 处理自定义scheme
+                if (!url.startsWith("http://") && !url.startsWith("https://")) {
+
+                    Toast.makeText(getActivity(), "需要下载客户端访问", Toast.LENGTH_LONG).show();
+                    try {
+                        // 以下固定写法
+                        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        // 防止没有安装的情况
+                        e.printStackTrace();
+                    }
+                    return true;
+                }
+                return false;
+
+            }
+
         };
 
         homeWebChromeClient = new WebChromeClient() {
@@ -414,98 +510,22 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.index_bottom_search:
-                //showPopFromBottom(view);
                 startHiAIEngine();
                 break;
 
         }
     }
 
-    /*
-    //语音模块函数
-    private void start_waker() {
-        // TODO Auto-generated method stub
-        mIvw_browser=VoiceWakeuper.getWakeuper();
-        if(mIvw_browser!=null) {
-            //resultString="";
-            //recoString="";
-            //ed1.setText(resultString);
-
-            final String resPath= ResourceUtil.generateResourcePath(getContext(), ResourceUtil.RESOURCE_TYPE.assets, "5aa9c8f7"+".jet");
-
-            mIvw_browser.setParameter(SpeechConstant.KEEP_ALIVE, "1");
-            mIvw_browser.setParameter(SpeechConstant.PARAMS, null);
-            mIvw_browser.setParameter(SpeechConstant.ENGINE_TYPE, mEngineType);
-            mIvw_browser.setParameter(ResourceUtil.IVW_RES_PATH, resPath);
-            mIvw_browser.setParameter(SpeechConstant.IVW_SST, "oneshot");  //ʶ��ģʽ��one_shot
-            mIvw_browser.setParameter(SpeechConstant.RESULT_TYPE, "json");
-            mIvw_browser.setParameter(SpeechConstant.IVW_THRESHOLD, "0:"+curThresh);
-            mIvw_browser.setParameter(SpeechConstant.IVW_SHOT_WORD, "0");  //��Ϊ��Ϊ
-            mIvw_browser.setParameter(SpeechConstant.ASR_PTT, "0");
-            mIvw_browser.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
-            mIvw_browser.startListening(mWakeupListener);
-        }
-    }
-
-    private WakeuperListener mWakeupListener = new WakeuperListener() {
-
-        @Override
-        public void onVolumeChanged(int arg0) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void onResult(WakeuperResult arg0) {
-            // TODO Auto-generated method stub
-            //String text=arg0.getResultString();
-            Toast.makeText(getContext(), "I'm listening...", Toast.LENGTH_SHORT).show();
-            //ed1.setText(text);
-            //ed2.setText(null);
-        }
-
-        @Override
-        public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {    //knot to fix
-            // TODO Auto-generated method stub
-            //RecognizerResult result=((RecognizerResult)arg3.get(SpeechEvent.KEY_EVENT_IVW_RESULT));
-            //recoString= result.getResultString();
-            //ed2.setText(recoString);
-            if (SpeechEvent.EVENT_IVW_RESULT==arg0) {
-                //ed2.setText(null);
-                RecognizerResult result=(RecognizerResult) arg3.get(SpeechEvent.KEY_EVENT_IVW_RESULT);
-                String final_stream = parseData(result.getResultString());
-                matching(final_stream);
-                //matching(final_stream, getWindow().getDecorView());
-                start_waker();
-            }
-
-        }
-
-        @Override
-        public void onError(SpeechError arg0) {
-            // TODO Auto-generated method stub
-            if(arg0.getErrorCode()==10118) {
-                Toast.makeText(getContext(), "It takes me quite long to expect your answer!?", Toast.LENGTH_SHORT).show();
-                start_waker();
-            }
-        }
-
-        @Override
-        public void onBeginOfSpeech() {
-            // TODO Auto-generated method stub
-            Toast.makeText(getContext(), "u r welcome to begin", Toast.LENGTH_SHORT).show();
-        }
-    };*/
 
     /**
-    * 致谢JDK 8，语音指令：
-    */
+     * 致谢JDK 8，语音指令：
+     */
     public void matching(String str){
         String strip_str = str.substring(0,str.length()-2);
         switch (strip_str){
             case "前进":
-               index_webView.goForward();
-               break;
+                index_webView.goForward();
+                break;
 
             case "后退":
                 index_webView.goBack();
@@ -526,39 +546,34 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
                 alert("放大");
                 scale_flag++;
                 index_webView.setInitialScale(scale_flag*100);
-                index_webView.goBack();
+                //index_webView.goBack();
                 break;
 
             case "缩小":
                 alert("缩小");
                 scale_flag--;
                 index_webView.setInitialScale(scale_flag*100);
-                index_webView.goBack();
+                //index_webView.goBack();
                 break;
 
             default :
-                index_webView.loadUrl("http://www.baidu.com/s?wd="+str);
+                index_webView.loadUrl("http://www.baidu.com/s?wd=" + strip_str);
                 break;
         }
     }
-/*
-    private String parseData(String resultString) {
-        Gson gson = new Gson();
-        bean xfBean = gson.fromJson(resultString, bean.class);
-        ArrayList<bean.WS> ws = xfBean.ws;
-        StringBuilder stringBuilder = new StringBuilder();
-        for ( bean.WS w: ws) {
-            String text = w.cw.get(0).w;
-            stringBuilder.append(text);
-        }
-        return stringBuilder.toString();
-    }*/
+
 
     //PopupWindow设置
     public void showPopFromBottom(View view) {
         engine_select = new popup_engine(getContext());
         //showAtLocation(View parent, int gravity, int x, int y)
         engine_select.showAtLocation(view.findViewById(R.id.fragment1), Gravity.CENTER, 0, 0);
+    }
+
+    //PopupInstruction设置
+    public void showPopInstruction(View view) {
+        instruction_show = new popup_instruction(getContext());
+        instruction_show.showAtLocation(view.findViewById(R.id.fragment1), Gravity.CENTER, 0, 0);
     }
 
     //Toast替换

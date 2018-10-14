@@ -38,6 +38,7 @@ public class MPagerAdapter extends FragmentPagerAdapter {
                 fragment=f1;
                 break;
             case 1:
+                //MFragmentBrowser.instance.onDestroy();
                 fragment=f2;
                 break;
             case 2:

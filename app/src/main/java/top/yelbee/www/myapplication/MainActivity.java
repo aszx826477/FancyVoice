@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private NoScrollViewPager mViewPager;
     public MPagerAdapter mPagerAdapter;
     public BottomNavigationView navigation;
-    public LinearLayout index_bottom_bar;
 
 
     @Override
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                         mViewPager.setCurrentItem(0);
                         return true;
                     case R.id.navigation_notebook:
-                        mViewPager.setCurrentItem(1);
+                        mViewPager.setCurrentItem(1);       //fuck
                         return true;
                     case R.id.navigation_about:
                         mViewPager.setCurrentItem(2);
@@ -122,12 +121,17 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         if(state==2){
             switch(mViewPager.getCurrentItem()){
                 case 0:
+
                     navigation.setSelectedItemId(R.id.navigation_browser);
                     break;
                 case 1:
+
                     navigation.setSelectedItemId(R.id.navigation_notebook);
                     break;
                 case 2:
+                    if (MFragmentBrowser.asr_instance != null) {
+                        MFragmentBrowser.asr_instance.destroy();
+                    }
                     navigation.setSelectedItemId(R.id.navigation_about);
                     break;
             }

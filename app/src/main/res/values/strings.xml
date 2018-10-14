@@ -29,7 +29,6 @@
     <string name="music_intro7">未知歌手 00:00:12</string>
 
 
-
     <!--我的模块-->
     <string name="me_toolbar">趣声</string>
     <string name="me_find">发现</string>
@@ -49,15 +48,23 @@
     <string name="game_toolbar">游戏</string>
     <string name="game_name">我有一个秘密，猜猜我是谁 ?</string>
     <string name="game_main_title">波比的秘密</string>
-    <string name="game_main_introduction">这是一款语音猜谜的游戏，游戏中您将会获得一句提示，然后需要说出“华为华为+你的答案”来通关。现在请说出“华为华为+开始”来启动游戏</string>
+    <string name="game_main_introduction">这是一款语音猜谜的游戏，游戏中您将会获得一句提示，然后需要说出“你的答案”来通关。现在请说出“开始”来启动游戏</string>
     <string name="game_sherlock">我和我的同伴喜欢探索世界奇案（打一人名）</string>
     <string name="game_sponge_bob">我很喜欢被人捏（打一卡通人物）</string>
     <string name="game_celebration_title">恭喜你通关啦！</string>
-    <string name="game_celebration_content">请使用“华为华为+停顿+结束”口令退出游戏世界</string>
 
 
     <!--关于软件-->
     <string name="about_toolbar">关于软件</string>
     <string name="copyright">Copyright Version 1.0 © 2018 - 2019\nFancyVoice.All Rights Reserved.</string>
 
+    <!--指令说明-->
+    <string name="instruction">
+        放大：将当前浏览界面放大\n
+        缩小：将当前浏览界面缩小\n
+        阅读：屏幕将自动滚动，进入自动阅读模式\n
+        引擎：会弹出搜索引擎选择界面\n\t\t\t\t\t\t可选择Baidu或Google\n
+        前进：进入浏览的后一个网页\n
+        后退：返回之前浏览的前一个网页
+    </string>
 </resources>

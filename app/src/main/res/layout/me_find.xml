@@ -89,7 +89,26 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="skpeech"
+                android:text="skypeech"
+                android:textAlignment="center" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/start_instruction"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:src="@drawable/me_instruction" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="指令说明"
                 android:textAlignment="center" />
         </LinearLayout>
     </LinearLayout>

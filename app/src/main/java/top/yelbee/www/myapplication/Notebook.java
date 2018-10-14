@@ -86,9 +86,7 @@ public class Notebook extends Activity implements
             case R.id.notebook_add:
                 Intent intent = new Intent(Notebook.this, NotebookEdit.class);
                 Bundle bundle = new Bundle();
-                //bundle.putString("info", "");
-                bundle.putString("info_title", "");
-                bundle.putString("info_content", "");
+                bundle.putString("info", "");
                 bundle.putInt("enter_state", 0);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -129,22 +127,20 @@ public class Notebook extends Activity implements
     // 点击listview中某一项的点击监听事件
     @Override
     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
         //获取listview中此个item中的内容
         String content = listview.getItemAtPosition(arg2) + "";
-        //获取title_date
+        //获取title
         /*
         String title = content.substring(content.indexOf("=") + 1,
                 content.indexOf(","));
                 */
         String title_date = content.substring(content.indexOf("=") + 1,
                 content.indexOf(","));
-        //根据title在SQLite中查找content
+        //根据title在SQLite中查找contentt
         String selectionArgs[] = {title_date};
         Cursor cursor = DB.query("note",null, "date=?", selectionArgs, null, null, null);
 
-        startManagingCursor(cursor);
-        //cursor查询结果的一个为空节点，moveToNext得到第一个的值
+        startManagingCursor(cursor);//不知道是不是这么改
         while (cursor.moveToNext()) {
             String date = cursor.getString(cursor.getColumnIndex("date"));
             if(date.equals(title_date)) {

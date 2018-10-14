@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_above="@+id/popup_instruction_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:textAlignment="center"
+        android:text="语音浏览器指令说明"
+        android:textSize="22dp"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:id="@+id/popup_instruction_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_centerInParent="true"
+        android:text="@string/instruction"
+        android:textSize="18dp"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_below="@+id/popup_instruction_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10sp"
+        android:text="指令仍可以在我的【指令说明】中查看"
+        android:textSize="18dp"
+        android:textColor="@color/white"/>
+
+</RelativeLayout>

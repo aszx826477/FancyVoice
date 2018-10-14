@@ -11,8 +11,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -20,18 +20,25 @@
         android:label="趣声"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <service android:name=".SinchService"></service>
-        <activity android:name=".FirstWelcomeActivity"></activity>
+        <service android:name=".SinchService" />
+
+        <activity android:name=".FirstWelcomeActivity" />
         <activity android:name=".Notebook" />
         <activity android:name=".NotebookEdit" />
         <activity android:name=".Game" />
+        <activity android:name=".spongebob_act" />
+        <activity android:name=".sherlock_act" />
+        <activity android:name=".name_act" />
+        <activity android:name=".celebration_act" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".CallScreenActivity"/>
-
-        <activity android:name=".IncomingCallScreenActivity" android:screenOrientation="portrait"
-            android:noHistory="true"/>
-
-        <activity android:name=".PlaceCallActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".CallScreenActivity" />
+        <activity
+            android:name=".IncomingCallScreenActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PlaceCallActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main">
@@ -40,11 +47,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
-        <activity android:name=".AboutSoftware"></activity>
-        <activity android:name=".MusicPlay"></activity>
+        <activity android:name=".AboutSoftware" />
+        <activity android:name=".MusicPlay" />
+        <activity android:name=".Instruction"></activity>
     </application>
 
 </manifest>

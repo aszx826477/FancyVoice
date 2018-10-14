@@ -51,18 +51,19 @@ import top.yelbee.www.myapplication.Controller.trait_extrator;
 import top.yelbee.www.myapplication.Controller.UtilsMusic;
 
 public class MusicPlay extends AppCompatActivity {
-
-    String music_name;
-    TextView musicLength, musicCur;
+    FloatingActionButton play, pause, smart;
+    TextView musicName, musicLength, musicCur;
     private SeekBar seekBar;
     MediaPlayer mediaPlayer = new MediaPlayer();                //音乐播放器类
+    AudioManager audioManager;                                  //音频管理类
     Timer timer;                                                //定时器类用于schedule一个Timertask,以此启动一个线程控制进度条和时间tv
     boolean isSeekBarChanging;                                  //互斥变量，防止进度条与定时器冲突。
+    boolean playerpause;                                        //播放暂停标志位
     int currentPosition;                                        //当前音乐播放的进度
     SimpleDateFormat format;                                    //时间格式 00:00
 
     //测试音频文件地址
-    //static String tempPath = Environment.getExternalStorageDirectory() + "/Music/a million on my soul.mp3";
+    static String tempPath = Environment.getExternalStorageDirectory() + "/Music/a million on my soul.mp3";
     AnimatedVectorDrawable s2p;                                 //animated_vector 控制容器变量
     AnimatedVectorDrawable p2s;
     TextView lyrics;                                            //歌词控件tv
@@ -75,8 +76,10 @@ public class MusicPlay extends AppCompatActivity {
     //音频流识别模块
     private static String TAG = "IatDemo";                      //语音听写
     private static com.iflytek.cloud.SpeechRecognizer mIat;     // 语音听写对象
+    private int bit_temp;
     private int freq_temp;
 
+    String music_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,7 @@ public class MusicPlay extends AppCompatActivity {
         Bundle bundle = this.getIntent().getExtras();
         music_name = bundle.getString("music_name");
 
+        //bit_temp = trait_extrator.bit_trait(ScrollingActivity.this,"voa_four.wav");
         freq_temp = trait_extrator.frequency_trait(MusicPlay.this, music_name);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

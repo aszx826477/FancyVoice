@@ -32,6 +32,7 @@ public class MFragmentMusic extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.music_fragment, container, false);
+
         InitView();
         return view;
     }
