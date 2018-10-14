@@ -1,6 +1,9 @@
 # 趣声
+<div align=center>
+    <img width="250" height="180" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/logo.png"/>
+</div>
 
-趣声是一款以智能语音技术为核心，具有获取信息、记录信息、娱乐休闲功能的安卓应用。结合了讯飞ASR（网站：http://www.xfyun.cn/）和华为HiAI Engine（网站：https://developer.huawei.com/consumer/cn/devservice/doc/31403），在高效率、信息化、快速化的时代需求下，趣声可以为日常生活的诸多场景，提供智能语音技术服务。其创新点有三：一是以人为本，以完全解放人类双手为目标，将残障人士纳入软件使用的范围；二是模块化设计，使得软件具有可拓展性并可建立以趣声为中心的生态；三是实现了多方语音互操作领域的创新。
+趣声是一款以智能语音技术为核心，具有获取信息、记录信息、娱乐休闲功能的安卓应用。结合了讯飞ASR(网站：http://www.xfyun.cn/)和华为HiAI Engine(网站：https://developer.huawei.com/consumer/cn/devservice/doc/31403)，在高效率、信息化、快速化的时代需求下，趣声可以为日常生活的诸多场景，提供智能语音技术服务。其创新点有三：一是以人为本，以完全解放人类双手为目标，将残障人士纳入软件使用的范围；二是模块化设计，使得软件具有可拓展性并可建立以趣声为中心的生态；三是实现了多方语音互操作领域的创新。
 
 目前趣声拥有五个模块，分别是语音浏览器、语音游戏、歌词识别、语音记事本、视频通话字幕辅助
 
@@ -11,9 +14,6 @@
 | 语音记事本                 |   语音转换为文字记录                                 |  HuaWei HiAI ASR |
 | 智能歌词识别播放器         |可简单过滤掉背景声干扰，提取出歌声中的歌词               | iFLY TEC |
 | 视频通话字幕辅助         |双方可建立实时视频通话，实时转写通话内容，以字幕形式呈现    | iFLY TEC |
-<div align=center>
-    <img width="250" height="180" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/logo.png"/>
-</div>
 
 ## 1 环境
 * 语言：中文
