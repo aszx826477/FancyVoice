@@ -1,16 +1,26 @@
-# FancyVoice
-FancyVoice(Chinese Name:趣声) is an Android Application using voice-recognize technology from iFLY(website:http://www.xfyun.cn/) and HiAI Engine((website:https://developer.huawei.com/consumer/cn/devservice/doc/31403). It has four mainly kinds of modules, *Speech-Control Browser, Lyric-recognition Music Player, Speech-Control Notebook and Game Centre based on voice-recognize*. With BottomNavigationView on the bottom of layout companied by Viewpager, following **Material Design** rules, you must find yourself immerse in exploring this application for great pleasure as well as for its colorful, creative design.
+# 趣声
 
+趣声是一款以智能语音技术为核心，具有获取信息、记录信息、娱乐休闲功能的安卓应用。结合了讯飞ASR（网站：http://www.xfyun.cn/）和华为HiAI Engine（网站：https://developer.huawei.com/consumer/cn/devservice/doc/31403），在高效率、信息化、快速化的时代需求下，趣声可以为日常生活的诸多场景，提供智能语音技术服务。其创新点有三：一是以人为本，以完全解放人类双手为目标，将残障人士纳入软件使用的范围；二是模块化设计，使得软件具有可拓展性并可建立以趣声为中心的生态；三是实现了多方语音互操作领域的创新。
+
+目前趣声拥有五个模块，分别是语音浏览器、语音游戏、歌词识别、语音记事本、视频通话字幕辅助
+
+| 模块        | 功能   |  接口调用 |
+| --------   | -----  | -----  |
+| 智能语音浏览器           | 支持语音指令对浏览器进行操作                            | HuaWei HiAI ASR |
+| 语音游戏                 |   结合传统游戏模式和语音交互，说出答案                  | iFLY TEC |
+| 语音记事本                 |   语音转换为文字记录                                 |  HuaWei HiAI ASR |
+| 智能歌词识别播放器         |可简单过滤掉背景声干扰，提取出歌声中的歌词               | iFLY TEC |
+| 视频通话字幕辅助         |双方可建立实时视频通话，实时转写通话内容，以字幕形式呈现    | iFLY TEC |
 <div align=center>
     <img width="250" height="180" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/logo.png"/>
 </div>
 
-## 1 Environment
-* Language: Chinese
-* Platform: Android API:25(minAPI:21)
-* Version: FancyVoice V1.0 (underdeveloped)
-### 1.1 Gradle details
-You could refer to the following configure to gradle
+## 1 环境
+* 语言：中文
+* 平台： Android API:25(minAPI:21)
+* 最新版本: 趣声 V1.3 （稳定版）
+### 1.1 Gradle相关
+在Gradle需要进行如下的配置
 
 ```
 /*app/build.gradle*/
@@ -24,40 +34,44 @@ dependencies {
 ```
 
 
-## 2 Function
-### 2.1 Speech-Control Browser
-You can use *Voice Conmmand* to control the browser if you are indolent. Or this is a kind of function for disabled individuals who cannot use their arms.
+## 2 功能
+### 2.1 语音浏览器
+
 <div align=center>
     <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/browser1.jpg"/>
     <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/browser2.jpg"/>
 </div>
 
-### 2.2 Lyric-recognition Music Player
-This is a tool that not only plays music but also recognises the song lyric and directly extract them from the audio.
+### 2.2 歌词识别器
 <div align=center>
     <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/music_player1.jpg"/>
     <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/music_player2.jpg"/>
 </div>
 
-### 2.3 Speech-Control Notebook
-Just click the button and then assert without any restraint. All your voice would be converted into texts.
+### 2.3 语音备忘录
+
 <div align=center>
     <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/notebook1.jpg"/>
     <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/notebook2.jpg"/>
 </div>
 
-### 2.4 Game Centre
-You need to speak “华为华为” to initialize the iFLY speech-recognize engine before giving any answer to microphone of cellphone. Following the instruction given by a description, you'll have limitless opportunities to use your acute brain, deduction and logic thinking to crack the right answer in each stage.
+### 2.4 语音游戏
+
 <div align=center>
   <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/game.jpg"/>
 </div>
 
-### 2.5 Other Modules
-Other Modules include ***Me*** and ***About Softeware***
-*Me* is a page for containing other voice-recognition tools;
-*About Software* is a Copyright Statement and contains developers' information.
+### 2.5 视频通话字幕辅助
+
+<div align=center>
+    <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/call1.jpg"/>
+    <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/call2.jpg"/>
+    <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/call3.jpg"/>
+</div>
+
+### 2.5 其他模块
+
 <div align=center>
   <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/me.jpg"/>
-  <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/about_software.jpg"/>
 </div>
 
