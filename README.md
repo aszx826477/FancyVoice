@@ -75,8 +75,8 @@ dependencies {
   <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/me.jpg"/>
 </div>
 
-##版本信息
-###2018-10-15 趣声V1.3(Stable Version) 杨荣锋、李指明
+## 版本信息
+### 2018-10-15 趣声V1.3(Stable Version) 杨荣锋、李指明
 
 HiAI使用条件比较苛刻，需要处理器麒麟970，且EMUI版本需要8.1，而且暂时无法支持多线程
 
@@ -100,7 +100,7 @@ HiAI使用条件比较苛刻，需要处理器麒麟970，且EMUI版本需要8.1
 
 增加了语音浏览器的导航界面（提升用户的使用体验），一是在第一次启动时，fragment从底部飞入；而是在“我的”里边的指令说明
 
-###2018-10-15 趣声V1.3.1 杨荣锋
+### 2018-10-15 趣声V1.3.1 杨荣锋
 
 增加对HiAI Engine ASR的返回报文的处理结果，针对以下三种结果
 
