@@ -37,8 +37,8 @@ dependencies {
 ## 2 功能
 ### 2.1 语音浏览器
 <div align=center>
-    <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/browser1.jpg"/>
-    <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/browser2.jpg"/>
+    <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/browser3.jpg"/>
+    <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/browser4.jpg"/>
 </div>
 
 
@@ -72,7 +72,7 @@ dependencies {
 ### 2.5 其他模块
 
 <div align=center>
-  <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/me.jpg"/>
+  <img width="150" height="300" src="https://github-1252789527.cos.ap-shanghai.myqcloud.com/FancyVoice/me2.jpg"/>
 </div>
 
 ## 3 版本信息
