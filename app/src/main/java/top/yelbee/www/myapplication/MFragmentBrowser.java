@@ -24,32 +24,27 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.huawei.hiai.asr.AsrConstants;
+
 import com.huawei.hiai.asr.AsrListener;
 import com.huawei.hiai.asr.AsrRecognizer;
-import com.iflytek.cloud.RecognizerResult;
+
 import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechEvent;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.VoiceWakeuper;
-import com.iflytek.cloud.WakeuperListener;
-import com.iflytek.cloud.WakeuperResult;
-import com.iflytek.cloud.util.ResourceUtil;
+
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import top.yelbee.www.myapplication.View.ScrollWebView;
-
-import static android.transition.TransitionManager.beginDelayedTransition;
+import top.yelbee.www.myapplication.Controller.AsrError;
 
 
 /**
@@ -130,8 +125,6 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
 
     public static AsrRecognizer asr_instance;
 
-
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -208,7 +201,9 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
 
         @Override
         public void onError(int i) {
-            Toast.makeText(getActivity(), "error code = " + i, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "error code = " + i, Toast.LENGTH_SHORT).show();
+            AsrError asrError = new AsrError();
+            asrError.errorCodeHandle(getActivity(), i);
 
         }
 
@@ -218,8 +213,14 @@ public class MFragmentBrowser extends Fragment implements View.OnClickListener {
             if (mAsrRecognizer != null) {
                 mAsrRecognizer.stopListening();
             }
-            //根据语音识别的结果进行相应的操作
-            matching(mResult);
+
+            if (mResult.equals("ASR_FAILURE") || mResult.equals("ASR_UNCONFIDENT") || mResult.equals("NO SPEECH DETECTED")) {
+                Toast.makeText(getActivity(), "识别不出声音", Toast.LENGTH_SHORT).show();
+            } else  {
+                //根据语音识别的结果进行相应的操作
+                matching(mResult);
+            }
+
         }
 
         @Override

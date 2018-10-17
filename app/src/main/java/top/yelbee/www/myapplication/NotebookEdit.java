@@ -8,44 +8,38 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.SwitchCompat;
+
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.CompoundButton;
+
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.huawei.hiai.asr.AsrConstants;
 import com.huawei.hiai.asr.AsrListener;
 import com.huawei.hiai.asr.AsrRecognizer;
-import com.iflytek.cloud.ErrorCode;
-import com.iflytek.cloud.InitListener;
-import com.iflytek.cloud.RecognizerListener;
-import com.iflytek.cloud.RecognizerResult;
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechError;
-import com.iflytek.cloud.SpeechUtility;
+
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+
 
 import top.yelbee.www.myapplication.Datebase.NotebookDB;
+import top.yelbee.www.myapplication.Controller.AsrError;
 
-import com.iflytek.cloud.SpeechRecognizer;
+
 import com.iflytek.cloud.VoiceWakeuper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+
 
 public class NotebookEdit extends Activity implements  View.OnClickListener {
     private FloatingActionButton fbutton;
@@ -123,7 +117,9 @@ public class NotebookEdit extends Activity implements  View.OnClickListener {
 
         @Override
         public void onError(int i) {
-            Toast.makeText(getApplicationContext(), "error code = " + i, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "error code = " + i, Toast.LENGTH_SHORT).show();
+            AsrError asrError = new AsrError();
+            asrError.errorCodeHandle(getApplicationContext(), i);
         }
 
         @Override
@@ -146,11 +142,14 @@ public class NotebookEdit extends Activity implements  View.OnClickListener {
             }
 
             //焦点检测
-            if (et_content.hasFocus()) {
+            if (mResult.equals("ASR_FAILURE") || mResult.equals("ASR_UNCONFIDENT") || mResult.equals("NO SPEECH DETECTED")) {
+                Toast.makeText(getApplicationContext(), "识别不出声音", Toast.LENGTH_SHORT).show();
+            } else if (et_content.hasFocus()) {
                 et_content.append(mResult);//待检测光标位置
-            } else if (et_title.hasFocus()) {
+            } else {
                 et_title.append(mResult);
             }
+
         }
 
         @Override
